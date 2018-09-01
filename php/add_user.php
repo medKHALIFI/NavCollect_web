@@ -3,6 +3,7 @@ include_once("db_connect.php");
 
 session_start(); 
 
+$nom=$_POST['nom_add'];
 $prenom=$_POST['prenom_add'];
 $email=$_POST['email_add'];
 $tele=$_POST['tele_add'];
