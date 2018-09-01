@@ -136,10 +136,16 @@
 {	background: #1abb9c;
 }
 .ol-control.ol-bar .ol-toggle.ol-active button:hover
-{	background: #1abb9c
+{	background: #1abb9c;
 }
 .ol-control.ol-toggle button:disabled
 {	background: rgba(0,60,136,.3);
+}
+.ol-control.ol-toggle button:hover
+{	background: #1abb9c;
+}
+.ol-control button:hover
+{	background: #1abb9c;
 }
 
 /* Subbar toolbar */
@@ -1573,7 +1579,7 @@
 
 .ol-search
 {	top: 0.5em;
-	left: 3em;
+	left: 0.5em;
 }
 .ol-touch .ol-search
 {	left: 3.5em;
@@ -1593,7 +1599,7 @@
 	margin: 1px 1px 1px 2px;
 	font-size: 1.14em;
 	padding-left: 0.3em;
-	height: 1.375em;
+	height: 2.5em;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 	-webkit-transition: all 0.1s;
@@ -1619,6 +1625,7 @@
 	cursor: pointer;
 	max-width: 17em;
 	overflow-x: hidden;
+	color: #000
 }
 /*
 .ol-control.ol-search ul
@@ -1636,8 +1643,9 @@
 	text-overflow: ellipsis;
 }
 .ol-search ul li.select,
-.ol-search ul li:hover
-{	background-color: rgba(0,60,136,.5);
+.ol-search ul li:hover,
+.ol-search ul li:active
+{	background-color: #1abb9c;
 	color: #fff;
 }
 .ol-search ul li img {
@@ -1658,7 +1666,7 @@
     position: absolute;
     height: 3px;
     left: 0;
-    top: 1.6em;
+    top: 3.5em;
     -webkit-animation: pulse .5s infinite alternate linear;
             animation: pulse .5s infinite alternate linear;
     background: red;

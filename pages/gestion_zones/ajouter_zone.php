@@ -31,6 +31,7 @@ include '../../php/db_connect.php';
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -181,11 +182,12 @@ include '../../php/db_connect.php';
                             <?php } ?>
                           </select>
                       </div>
-                     
-                      </br></br></br></br>
+                      <br> <br> <br>
                       <div id="map" class="map"></div>
                       </br>
-                      <button type="button" class="btn bg-light-blue waves-effect m-r-20" data-type="prompt" id="nom_zone">Ajouter</button>
+                      <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        <button type="button" class="btn bg-light-blue waves-effect m-r-20"  style="width: 100%;" data-type="prompt" id="nom_zone">Enregister la zone</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -215,17 +217,7 @@ include '../../php/db_connect.php';
       var layer1;
       var layer2;
 
-      //Couche qui va porter la digitalisation des zones :
-      var vector = new ol.layer.Vector({
-        name: 'vector',
-        source: new ol.source.Vector()
-      });
-
-      //Initialisation des groupes des couches 
-      var overLayGroup = new ol.layer.Group({
-        title : 'Couches',
-        layers: [vector]
-      });
+      
 
       //La vue initiale de la carte (Vue globale au Maroc):
       var view = new ol.View({
@@ -233,6 +225,20 @@ include '../../php/db_connect.php';
         center: [-788691.20, 3736368.96]
       });
 
+      worldImagery = new ol.layer.Tile({
+				title: "World Imagery (ESRI)",
+        type:'base',
+    		source: new ol.source.XYZ({	url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'})
+			});
+
+      // Popup overlay with popupClass=anim
+      var popup = new ol.Overlay.Popup ({	
+        popupClass: "default anim", //"tooltips", "warning" "black" "default", "tips", "shadow",
+          closeBox: true,
+          onclose: function(){ console.log("You close the box"); },
+          autoPan: true,
+          autoPanAnimation: { duration: 100 }
+      });
       // Initialisation de la carte par défaut
       var map = new ol.Map({
         target: 'map',
@@ -241,11 +247,7 @@ include '../../php/db_connect.php';
           new ol.layer.Group({
             'title': 'Cartes de base',
             layers: [
-              new ol.layer.Tile({
-                title: 'OSM',
-                type: 'base',
-                source: new ol.source.OSM()
-              }),
+              worldImagery,
               new ol.layer.Tile({
                 title: 'Bing',
                 type: 'base',
@@ -253,16 +255,43 @@ include '../../php/db_connect.php';
                   key: 'AuFUqJsfrG-Qgvg9sDChTNlHzN5_ybJA7LOknPz-Y1T6dNONDIIkQrPHvxjOe8To',
                   imagerySet: 'AerialWithLabels'
                 })
+              }),
+              new ol.layer.Tile({
+                title: 'OSM',
+                type: 'base',
+                source: new ol.source.OSM()
               })
-
-            ]
-          }),
-          overLayGroup],
+            ],
+            overlays: [popup]
+          })
+        ],
         controls : ol.control.defaults({
           attribution : false,
           zoom : false
-        }),
+        })
       });
+
+      //Couche qui va porter la digitalisation des zones :
+      var vector = new ol.layer.Vector({
+        name: 'vector',
+        source: new ol.source.Vector(),
+        style: new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: '#f4433657'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#F44336',
+            width: 2
+          }),
+          image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+              color: '#F44336'
+            })
+          })
+        })
+      });
+      map.addLayer(vector);
 
       // Zoom Slider 
       zoomslider = new ol.control.ZoomSlider({
@@ -279,10 +308,28 @@ include '../../php/db_connect.php';
       //  La barre d'échelle
       var scaleLineControl = new ol.control.ScaleLine();
       scaleLineControl.setUnits('metric');
+      map.addControl(scaleLineControl);
      
       // Main control bar
       var mainbar = new ol.control.Bar();
       map.addControl(mainbar);
+
+      // Set the control grid reference
+      var search = new ol.control.SearchPhoton(
+        {	//target: $(".options").get(0),
+          lang:"fr",		// Force preferred language
+          position: true	// Search, with priority to geo position
+        });
+      map.addControl (search);
+
+      // Select feature when click on the reference index
+      search.on('select', function(e)
+        {	// console.log(e);
+          map.getView().animate(
+          {	center:e.coordinate,
+            zoom: Math.max (map.getView().getZoom(),16)
+          });
+        });
       
       // Menu d'édition et de digitalisation (Plugin Ol-ext3)
       var editbar = new ol.control.Bar({   
@@ -300,12 +347,11 @@ include '../../php/db_connect.php';
       //  2- an option bar to delete / get information on the selected feature
       var sbar = new ol.control.Bar();
       sbar.addControl (new ol.control.Button({   
-          html: '<i class="fa fa-times"></i>',
-          title: "Supprimer l'entité sélectionnée",
+          html: '<i class="fas fa-times"></i>',
+          title: "Supprimer la zone sélectionnée !",
           handleClick: function(){   
               var features = selectCtrl.getInteraction().getFeatures();
-              if (!features.getLength()) info("Séléctionnez une entité...");
-              else info(features.getLength()+" entité(s) sont supprimées.");
+              
               for (var i=0, f; f=features.item(i); i++){
                  vector.getSource().removeFeature(f);
               }
@@ -313,88 +359,81 @@ include '../../php/db_connect.php';
           }
       }));
       sbar.addControl (new ol.control.Button({   
-          html: '<i class="fa fa-info"></i>',
-          title: "Affcher les informations",
+          html: '<i class="fas fa-info"></i>',
+          title: "Afficher les informations concernant cette zone",
           handleClick: function(){   
               switch (selectCtrl.getInteraction().getFeatures().getLength()){
                   
                   case 0: info("Select an object first...");
                           break;
-                  case 1:var f = selectCtrl.getInteraction().getFeatures().item(0);
-                         info("Selection is a "+f.getGeometry().getType());
+                  case 1:var feature = selectCtrl.getInteraction().getFeatures().getGeometry();
+                         var content = "hanoua";
+                         popup.show(feature.getCoordinates(), content);
                          break;
                   default:
-                         info(selectCtrl.getInteraction().getFeatures().getLength()+ " objects seleted.");
+                         info(f.getInteraction().getFeatures().getLength()+ " objects seleted.");
                          break;
               }
           }
       }));
       var selectCtrl = new ol.control.Toggle({   
-          html: '<i class="fa fa-hand-pointer-o"></i>',
-          title: "Select",
+          html: '<i class="fas fa-hand-pointer"></i>',
+          title: "Sélectionner une zone",
           interaction: new ol.interaction.Select (),
           bar: sbar,
           autoActivate:true,
-          active:false
+          active:true
       });
       editbar.addControl ( selectCtrl);
-
       // Add editing tools
       //point
+      //Style draw: 
+      var style_draw= new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: '#1abb9c54'
+        }),
+        stroke: new ol.style.Stroke({
+          color: '#1ABB9C',
+          width: 2
+        }),
+        image: new ol.style.Circle({
+          radius: 7,
+          fill: new ol.style.Fill({
+            color: '#1ABB9C'
+          })
+        })
+      })
+
       var pedit = new ol.control.Toggle({   
-          html: '<i class="fa fa-map-marker" ></i>',
-          title: 'Point',
+          html: '<i class="far fa-circle"></i>',
+          title: 'Ajouter un cercle',
           interaction: new ol.interaction.Draw({  
-              type: 'Point',
-              source: vector.getSource()
+              type: 'Circle',
+              source: vector.getSource(),
+              style: style_draw
           })
       });
       editbar.addControl ( pedit );
-
-
-      //linestring
-      var ledit = new ol.control.Toggle({   
-          html: '<i class="fa fa-share-alt" ></i>',
-          title: 'LineString',
+      //Square
+      var pedit = new ol.control.Toggle({   
+          html: '<i class="fas fa-vector-square"></i>',
+          title: 'Ajouter une carré',
           interaction: new ol.interaction.Draw({  
-              type: 'Ligne',
+              type: 'Circle',
               source: vector.getSource(),
-              // Count inserted points
-              geometryFunction: function(coordinates, geometry){   
-                  if (geometry) geometry.setCoordinates(coordinates);
-                  else geometry = new ol.geom.LineString(coordinates);
-                  this.nbpts = geometry.getCoordinates().length;
-                  return geometry;
-              }
-          }),
-          // Options bar associated with the control
-          bar: new ol.control.Bar({   
-              controls:[ new ol.control.Button({   
-                  html: '<i class="fas fa-minus"></i>',
-                  title: 'Supprimer le dernier point',
-                  handleClick: function(){   
-                      if (ledit.getInteraction().nbpts>1) ledit.getInteraction().removeLastPoint();
-                  }}),
-                  new ol.control.Button({
-                      html: '<i class="fas fa-check"></i>',
-                      title: "Terminer la digitalisation",
-                      handleClick: function(){
-                      // Prevent null objects on finishDrawing
-                         if (ledit.getInteraction().nbpts>2) ledit.getInteraction().finishDrawing();
-                      }
-                  })
-              ]
+              style: style_draw,
+              geometryFunction: ol.interaction.Draw.createRegularPolygon(4)
           })
       });
-      editbar.addControl ( ledit );
-
+      editbar.addControl ( pedit );
       //polygon
       var fedit = new ol.control.Toggle({   
-          html: '<i class="fa fa-bookmark-o fa-rotate-270" ></i>',
-          title: 'Polygon',
+          html: '<i class="fas fa-draw-polygon" ></i>',
+          title: 'Ajouter un polygone',
           interaction: new ol.interaction.Draw({  
               type: 'Polygon',
               source: vector.getSource(),
+              style: style_draw,
               // Count inserted points
               geometryFunction: function(coordinates, geometry){   
                   this.nbpts = coordinates[0].length;
@@ -408,15 +447,16 @@ include '../../php/db_connect.php';
             controls:[new ol.control.Button
               ({
                   html: '<i class="fas fa-minus"></i>',//'<i class="fa fa-mail-reply"></i>',
-                  title: 'Supprimer le dernier point',
+                  title: "Annuler le dernier point",
                   handleClick: function(){   
                       if (fedit.getInteraction().nbpts>1) fedit.getInteraction().removeLastPoint();
                   }
               }),
               new ol.control.Button({   
-                  html:'<i class="fa fa-check"></i>', 
-                  title: "Terminer la digitalisation",
-                  handleClick: function(){  
+                  html: '<i class="fas fa-check" ></i>',
+                  title: "Terminer",
+                  handleClick: function(){   
+                  
                       if (fedit.getInteraction().nbpts>3) fedit.getInteraction().finishDrawing();
                   }
               })
@@ -424,26 +464,90 @@ include '../../php/db_connect.php';
           })
       });
       editbar.addControl ( fedit );
-
-      //Arrêter l'interation
-      var stop_interaction = new ol.control.Button({
-          html: '<i class="fa fa-pointer"></i>',
-          title: "Arrêter l'interaction",
+      //modify
+      var modify = new ol.control.Button({
+          html: '<i class="fas fa-pencil-alt"></i>',
+          title: "Modifier une zone",
           handleClick: function(e){   
-              map.removeInteraction(vector);
+            var Modify = {
+              init: function() {
+                this.select = new ol.interaction.Select();
+                map.addInteraction(this.select);
+
+                this.modify = new ol.interaction.Modify({
+                  features: this.select.getFeatures()
+                });
+                map.addInteraction(this.modify);
+
+                this.setEvents();
+              },
+              setEvents: function() {
+                var selectedFeatures = this.select.getFeatures();
+
+                this.select.on('change:active', function() {
+                  selectedFeatures.forEach(selectedFeatures.remove, selectedFeatures);
+                });
+              },
+              setActive: function(active) {
+                this.select.setActive(active);
+                this.modify.setActive(active);
+              }
+            };
+            Modify.init();
           }
       });
-      mainbar.addControl(stop_interaction);
-
-      //Supprimer toutes les entités
+      mainbar.addControl(modify);
+      //clear the map
       var delete_all = new ol.control.Button({
-          html: '<i class="fa fa-trash"></i>',
-          title: "Supprimez toutes les entités",
+          html: '<i class="fas fa-trash"></i>',
+          title: "Effacer toutes les zones",
           handleClick: function(e){   
               vector.getSource().clear();
           }
       });
       mainbar.addControl(delete_all);
+
+      var geojson_zone ;
+      var bool = false;
+      $("#selectBox").change(function() {
+        bool = true;
+        var id =$(this).children(":selected").attr("id");
+        if(id == '020202'){
+          bool = false;
+          map.removeLayer(geojson_zone);
+          map.getView().setCenter([-788691.20, 3736368.96]);
+          map.getView().setZoom(5);
+          test_intersect.getSource().clear();
+        }else{
+          var url = "../../php/recupere_zone_fac.php";
+          $.getJSON(url, function(result) {
+            $.each(result, function(i, field) {
+              
+              var etendue = field.contenu_zone_fac;
+              var id_zone1=field.id_zone_fac;
+              var nom_zone_geojson=field.nom_zone;
+              if (id_zone1 == id ) {
+                geojson_zone  = new ol.layer.Vector({
+                  name: 'geojson_zone',
+                  opacity: 1.0,
+                  filters: [],
+                  title: nom_zone_geojson,
+                  timeInfo: null,
+                  isSelectable: true,
+                  source: new ol.source.Vector({
+                    features: new ol.format.GeoJSON().readFeatures(etendue)
+                  }) 
+                });
+                //overlayGroup.getLayers().push(geojson_zone);
+                map.addLayer(geojson_zone);
+                var extent = geojson_zone.getSource().getExtent();
+                map.getView().fit(extent, map.getSize());
+              }
+            });
+          });
+        }
+      });
+      //Save zone
       $('#nom_zone').click(function(){
         if(bool == false){
           var geojson= new ol.format.GeoJSON().writeFeatures(vector.getSource().getFeatures());
@@ -467,14 +571,15 @@ include '../../php/db_connect.php';
               url: '../../php/geojson_to_db.php',
               type: 'POST',
               data: { 'geojson':geojson , 'nom_zone': inputValue },
-              beforeSend: function() {
-                alert("sending...");
-              },
               success: function(response) {
                 if (response==1) {
-                  alert("bien joué");
-                } else {
-                  alert("errooooooooooooor");
+                  swal("C'est fait !", "Une nouvelle zone a bien été ajoutée", "success");
+                }
+                if (response==0) {
+                  swal.showInputError("Le nom que vous avez attribuez à cette zone existe déjà. Veuillez réessayer!");
+                }
+                else{
+                  alert("Erreur serveur");
                 }
               } 
             });
@@ -484,6 +589,8 @@ include '../../php/db_connect.php';
           //bool=true
           intersection_test();
         }
+
+        
       });
     </script>
     <script>
@@ -503,7 +610,7 @@ include '../../php/db_connect.php';
         opacity: 1.0,
         filters: [],
         style : myStyle ,
-        title: "  intersection   ",
+        title: "Couche d'intersection",
         timeInfo: null,
         isSelectable: true,
         source: new ol.source.Vector({}) 
@@ -550,14 +657,15 @@ include '../../php/db_connect.php';
                 type: 'POST',
                 data: { 'geojson':geojson , 'nom_zone': inputValue },
                 
-                beforeSend: function() {
-                  alert("sending...");
-                },
                 success: function(response) {
                   if (response==1) {
-                    alert("bien joué");
-                  } else {
-                    alert("errooooooooooooor");
+                    swal("C'est fait !", "Une nouvelle zone a bien été ajoutée", "success");
+                  }
+                  if (response==0) {
+                    swal.showInputError("Le nom que vous avez attribuez à cette zone existe déjà. Veuillez réessayer!");
+                  }
+                  else{
+                    alert("Erreur serveur");
                   }
                 } 
               });
@@ -568,44 +676,7 @@ include '../../php/db_connect.php';
     </script>
 
     <script>
-      var geojson_zone ;
-      var bool = false;
-      $("#selectBox").change(function() {
-        bool = true;
-        var id =$(this).children(":selected").attr("id");
-        if(id == '020202'){
-          bool = false;
-          map.removeLayer(geojson_zone);
-          map.getView().setCenter([-788691.20, 3736368.96]);
-          map.getView().setZoom(5);
-        }else{
-          var url = "../../php/recupere_zone_fac.php";
-          $.getJSON(url, function(result) {
-            $.each(result, function(i, field) {
-              
-              var etendue = field.contenu_zone_fac;
-              var id_zone1=field.id_zone_fac;
-              if (id_zone1 == id ) {
-                geojson_zone  = new ol.layer.Vector({
-                  name: 'geojson_zone',
-                  opacity: 1.0,
-                  filters: [],
-                  title: "  point   ",
-                  timeInfo: null,
-                  isSelectable: true,
-                  source: new ol.source.Vector({
-                    features: new ol.format.GeoJSON().readFeatures(etendue)
-                  }) 
-                });
-                //overlayGroup.getLayers().push(geojson_zone);
-                map.addLayer(geojson_zone);
-                var extent = geojson_zone.getSource().getExtent();
-                map.getView().fit(extent, map.getSize());
-              }
-            });
-          });
-        }
-      });
+      
     </script>
     <!-- Bootstrap -->
     <script src="../../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -627,4 +698,5 @@ include '../../php/db_connect.php';
     <script src="../../plugins/node-waves/waves.js"></script>
 
   </body>
+  <?php pg_close($dbconn); ?>
 </html>
