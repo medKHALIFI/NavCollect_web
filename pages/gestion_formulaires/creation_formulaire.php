@@ -204,6 +204,7 @@ include '../../php/db_connect.php'
     <script src="../../plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../js/custom.js"></script>
+    <!--ce fichier nexiste pas parmi les js  ???? -->
     <script src="../../js/gestion_formulaires/add_form.js"></script>
     <!-- jQuery formBuilder -->
     <script src="assets/js/vendor.js"></script>

@@ -69,7 +69,7 @@ if(!isset($_SESSION["username"]))
                     <ul class="nav child_menu">
                       <li><a href="index.php">Acceuil</a></li>
                       <li><a href="index2.html">Profil</a></li>
-                      <li><a href="index3.html">Statistiques</a></li>
+                     <!-- <li><a href="index3.html">Statistiques</a></li> -->
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
