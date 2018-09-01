@@ -47,13 +47,7 @@ $(document).ready(function() {
                         $("#form_add_user").trigger("reset");
                         $("#submitButton_add").html('Ajouter un autre');
                         $("#agent").html('Ajouter un autre agent');
-                        setTimeout(function() {
 
-                            // similar behavior as an HTTP redirect
-                            //pour actualiser la table avec les nouvelle enregistrement apres 2 second
-                            url = "index.php";
-                            location.replace(url);
-                        }, 2000);
 
 
                     } else if (response == 1) {
