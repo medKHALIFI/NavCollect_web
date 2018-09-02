@@ -196,43 +196,43 @@ if(!isset($_SESSION["username"]))
                         <form id="form_update_admin" method="POST" action"../php/update_admin.php">
 
                             <div class="form-group form-float">
+                                <label class="form-label">Nom</label>
                                 <div class="form-line">
-                                    <label class="form-label">Nom</label>
                                     <input type="text" class="form-control nom_update" name="nom_update" id="nom_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
+                                <label class="form-label">Prenom</label>
                                 <div class="form-line">
-                                    <label class="form-label">Prenom</label>
                                     <input type="text" class="form-control prenom_update" id="prenom_update" name="prenom_update"  required autofocus >
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
+                                <label class="form-label">Pseudo</label>
                                 <div class="form-line">
-                                    <label class="form-label">Pseudo</label>
                                     <input type="text" class="form-control pseudo_update" id="pseudo_update" name="pseudo_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
+                                <label class="form-label">Mots de passe</label>
                                 <div class="form-line">
-                                    <label class="form-label">Mots de passe</label>
                                     <input type="password" class="form-control password_update" id="password_update" name="password_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
+                                <label class="form-label">Mots de passe (Confirmation)</label>
                                 <div class="form-line">
-                                    <label class="form-label">Mots de passe (Confirmation)</label>
                                     <input type="password" class="form-control password1_update" id="password1_update" name="password1_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
+                                <label class="form-label">Email</label>
                                 <div class="form-line">
-                                    <label class="form-label">Email</label>
                                     <input type="text" class="form-control email_update" id="email_update" name="email_update" required>
                                 </div>
                             </div>
