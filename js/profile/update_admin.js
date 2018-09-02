@@ -13,7 +13,7 @@ $(document).ready(function(){
 			
 		});
 	});
-
+	// Validation des champs en utilisant jQuery Validate js:
 	$('#form_update_admin').validate({
 		rules: {
 			nom_update: "required",
@@ -66,21 +66,11 @@ $(document).ready(function(){
 					$("#submitButton_update").html('<span class="glyphicon glyphicon-transfer"></span> &nbsp; Mise à jour...');
 				},
 				success: function(response){
-
 					if(response== 1){
-						swal("C'est fait!", "Votre panier d'informations a été mis à jour", "success");
-						$("#submitButton_update").html('Sauvegarder');
-						
-						
-					} else {                                    
-						swal("Erreur", "Veuillez réessayer dans quelques minutes!", "error");
-						$("#submitButton_update").html('Enregistrer');
-					}
-
+						location.replace("../index.php");
+					} 
 				}
-
 			});
-			
 			return false;
 		},
 	});	

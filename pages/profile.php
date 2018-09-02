@@ -59,9 +59,7 @@ if(!isset($_SESSION["username"]))
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -70,7 +68,6 @@ if(!isset($_SESSION["username"]))
                     <ul class="nav child_menu">
                       <li><a href="index.php">Acceuil</a></li>
                       <li><a href="profile.php">Profile</a></li>
-                     <!-- <li><a href="index3.html">Statistiques</a></li> -->
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -278,7 +275,7 @@ if(!isset($_SESSION["username"]))
     <script src="../js/profile/update_admin.js"></script>
   </body>
   <?php 
-    //pg_free_result($result);
+    pg_free_result($result);
     pg_close($dbconn);
    ?>
 </html>
