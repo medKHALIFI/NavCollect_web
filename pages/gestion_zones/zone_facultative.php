@@ -243,16 +243,17 @@ include '../../php/db_connect.php';
                           </div>
 
                           <div class="form-group form-float">
-                            <div class="form-line">
+                            <div class="col-md-12">
                               <label class="form-label">Zone facultative (.json, .geojson, .txt)</label>
                               <div class="input-group">
                                 <label class="input-group-btn">
                                   <span class="btn bg-green">
                                   Choisissez un fichier&hellip; <input type="file" style="display: none;" accept=".json,.geojson,.txt" id="file_add" class="file_add " name="file_add"></span>
                                 </label>
+                                <br>
                                 <input type="text" class="form-control" readonly>
                               </div>
-                            </div>
+                            </div> 
                           </div>
                           <br>
                           <div class="modal-footer">
@@ -360,22 +361,13 @@ include '../../php/db_connect.php';
             visible: true
         });
 
-        var bing1 = new ol.layer.Tile({   
-            title: "Bing Sattelite",
-            baseLayer: true,
-            source: new ol.source.BingMaps({
-                key: 'AuFUqJsfrG-Qgvg9sDChTNlHzN5_ybJA7LOknPz-Y1T6dNONDIIkQrPHvxjOe8To',
-                imagerySet: 'Aerial'
-            }),
-            visible: false
-        });
-
         var map1 = new ol.Map({
-            layers: [osm1, bing1],
+            layers: [osm1],
             target: 'map1',
-            controls: ol.control.defaults().extend([  
-                new ol.control.LayerPopup(),
-                new ol.control.FullScreen(),
+            controls: ol.control.defaults({
+              attribution : false,
+              zoom : false
+            }).extend([
                 new ol.control.ScaleLine()
             ]),
             
