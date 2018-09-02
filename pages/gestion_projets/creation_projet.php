@@ -94,7 +94,7 @@ include_once '../../php/db_connect.php';
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="creation_projet.php">Créer un projet</a></li>
-                      <li><a href="consulter_projet.php">Consulter les projets</a></li>
+                      <li><a href="consulter_projets.php">Consulter les projets</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-map"></i> Gestion des zones <span class="fa fa-chevron-down"></span></a>
