@@ -9,7 +9,7 @@ include '../../php/db_connect.php';
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <title>NAVCollect | Consultation des zones </title>
+    <title>NAVCollect | Consultation les projets</title>
 
     <!-- Openlayers -->
     <link rel="stylesheet" href="../../plugins/ol-3.15.1/ol.css" />
@@ -26,6 +26,7 @@ include '../../php/db_connect.php';
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -74,8 +75,7 @@ include '../../php/db_connect.php';
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="index2.html">Profil</a></li>
-                      <li><a href="index3.html">Statistiques</a></li>
+                      <li><a href="../profile.php">Profil</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -152,29 +152,27 @@ include '../../php/db_connect.php';
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              
             </div>
-
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <div class="col-xs-7 ">
-                      <h2>Projets</h2>
+                      <h2>Consulter vos projets</h2>
                     </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_zone_fac" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_zone_fac" >
                           <thead>
                             <tr>
-                              <th style="width: 25%;">admin</th>
-                              <th style="width: 25%;">titre</th>
-                              <th style="width: 25%;">description</th>
-                              <th style="width: 25%;">affectation</th>
+                              <th style="width: 30%;">Nom de projet</th>
+                              <th style="width: 40%;">Description de projet</th>
+                              <th style="width: 15%;">Affectation</th>
+                              <th style="width: 15%;">Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -183,19 +181,22 @@ include '../../php/db_connect.php';
                             $query = 'select projet.id_projet,administrateur.nom_admin,projet.titre,projet.description_projet from projet,administrateur where projet.id_admin = administrateur.id_admin';
                             $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
                             while ($row=pg_fetch_row($result)) { 
-                                
                                 ?>
                             <tr>
-                            <td id="nom_admin"><?php  echo $row[1] ?></td>
                               <td id="titre_projet"><?php  echo $row[2] ?></td>
                               <td id="description_projet"><?php  echo $row[3] ?></td>
                               <td>
-                                <button name="preview" class="btn bg-blue-sky preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
-                                    <i class="material-icons">affectation</i>
-                                </button>
-                                <button name="delete" class="btn bg-red delete_projet" id="<?php echo $id_zone_delete = $row[0]; ?>">
-                                    <i class="material-icons">supprimer</i>
-                                </button>
+                                <center>
+                                  <button name="preview" class="btn bg-blue-sky affectation" data-toggle="modal" id="<?php echo $affectation =$row[0]; ?>">
+                                    <i class="far fa-eye"></i> Visualiser
+                                  </button>
+                                </center>
+                              <td>
+                                <center>
+                                  <button name="delete" class="btn bg-red delete_projet" id="<?php echo $delete_projet = $row[0]; ?>">
+                                      <i class="fas fa-trash"></i> Supprimer
+                                  </button>
+                                </center>
                               </td>
                             </tr>
                             <?php } 
@@ -214,66 +215,19 @@ include '../../php/db_connect.php';
         </div>
         <!-- /page content -->
 
-        <!-- Modals : ajouter une nouvelle zone -->
-        <div class="modal fade" id="modalAdd" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="defaultModalLabel">Ajouter une zone facultative</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="form_add_zonefac" method="POST" role="form" class="form_add_zonefac" data-target="#modalAdd" action="../../php/add_zone_fac.php">
-
-                          <div class="form-group form-float">
-                            <div class="form-line">
-                              <label class="form-label">Nom</label>
-                              <input type="text" class="form-control nom_add" name="nom_add" id="nom_add"  autofocus>
-                            </div>
-                          </div>
-
-                          <div class="form-group form-float">
-                            <div class="form-line">
-                              <label class="form-label">Source</label>
-                              <input type="text" class="form-control source_add" id="source_add" name="source_add"    >
-                            </div>
-                          </div>
-
-                          <div class="form-group form-float">
-                            <div class="form-line">
-                              <label class="form-label">Zone facultative (.json, .geojson, .txt)</label>
-                              <div class="input-group">
-                                <label class="input-group-btn">
-                                  <span class="btn btn-primary">
-                                  Browse&hellip; <input type="file" style="display: none;" accept=".json,.geojson,.txt" id="file_add" class="file_add" name="file_add"></span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                              </div>
-                            </div>
-                          </div>
-                          <br>
-                          <div class="modal-footer">
-                            <button class="btn btn-primary waves-effect" id="submitButton_add" type="submit">Enregistrer</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fermer</button>
-                          </div>
-                        </form>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-
         <!-- Modals : Prévisualiser la zone  -->
-        <div class="modal fade" id="previewMap">
+        <div class="modal fade" id="affectationModal">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">Visualiser la zone</h4>
+                    <h4 class="modal-title" id="defaultModalLabel">Affectation</h4>
                 </div>
+                <br>
                 <div class="modal-body" id="bodyPreview">
+                
                     
                 </div>
+                <br> <br> <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fermer</button>
                 </div>
@@ -334,26 +288,60 @@ include '../../php/db_connect.php';
       var id_projet;
       
       $(document).ready(function(){
-
-        $(".preview_zone").click(function(){
-          
-          $("#previewMap").modal();
-          $("#bodyPreview").html('<table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_affectation" ><thead><tr><th style="width: 34%;">agent</th> <th style="width: 33%;">formulaire</th><th style="width: 33%;">géométrie</th></tr> </thead><tbody></tbody> </table>');
+        $(".affectation").click(function(){
+          $("#affectationModal").modal();
+          $("#bodyPreview").html('<table class="table table-bordered jambo_table table-striped table-hover dataTable js-exportable" id="table_affectation" ><thead><tr><th style="width: 30%;">Agent</th><th style="width: 20%;">Formulaire</th><th style="width: 10%;">Géométrie</th><th style="width: 30%;">Zone détude</th><th style="width: 10%;">Action</th></tr> </thead><tbody></tbody></table>');
+          //$("#bodyPreview").html('<table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_affectation" ><thead><tr><th style="width: 10%;">Agent</th><th style="width: 10%;">Formulaire</th><th style="width: 30%;">Type de géométrie</th><th style="width: 20%;">Zone d'étude</th><th style="width: 30%;">Visualiser les données</th></tr> </thead><tbody></tbody></table>');
           id_projet = $(this).attr("id");
+          //alert(id_projet);
         });
         
-        $("#previewMap").on('shown.bs.modal', function () {
-          recuperer_zone(id_projet);
+        $("#affectationModal").on('shown.bs.modal', function () {
+         // alert(id_projet);
+          recuperer_projet(id_projet);
         });
 
       });
-
-      function recuperer_zone(id_projet){
-        console.log("appel de lafonction recuperer_zone id du projet "+id_projet);
-           
+      function delete_affect(id_affect){
+        //alert(id_affect);
+        var el = this;
+        swal({
+          title: "Etes-vous sûr que vous voulez supprimer cette affectation?",
+          text: "Vous ne pourrez pas le récupérer !",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Oui, supprimer",
+          cancelButtonText: "Non, annuler",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        }, 
+        function(isConfirm) {
+          if (isConfirm) {
+            $.ajax({
+              url: '../../php/delete_affectation.php',
+              type: 'POST',
+              data: { id_affect: id_affect },
+              success: function(response) {
+                //alert(response);
+                swal("C'est fait!", "Cette affectation a été supprimée", "success");
+                $(this).closest('tr').css('background', 'tomato');
+                $(this).closest('tr').fadeOut(800, function() {
+                  $(this).remove();
+                });
+              }
+            });
+           } 
+            else {
+                swal("Annulé!", "Vous n'avez pas continué cette opération", "error");
+            }
+        })
+      }
+      function recuperer_projet(id_projet){
+        //alert("appel de lafonction recuperer_projet id du projet "+id_projet);
         var url = "../../php/recupere_affectation_projet.php";
         $.getJSON(url, function(result) {
-            console.log("resultat de php"+result);
+            //alert("resultat de php"+result);
            
             $.each(result, function(i, field) {
 
@@ -361,29 +349,25 @@ include '../../php/db_connect.php';
                 var nom_agent=field.nom_agent;
                 var nom_form=field.nom_form;
                 var id_geom_affect=field.id_geom_affect;
+                var nom_zone=field.nom_zone;
+                var id_affect=field.id_affect;
+                var prenom_agent=field.prenom_agent;
 
-console.log("id projet affect"+id_projet_affect);
+                //console.log("id projet affect"+id_projet_affect);
                 if (id_projet_affect == id_projet ) {
-                  console.log("agent"+nom_agent+" form"+nom_form+"geom"+id_geom_affect);
-
+                  //alert("agent"+nom_agent+" form"+nom_form+"geom"+id_geom_affect+"zone"+nom_zone);
                   if(id_geom_affect == 1){
-                    $("#table_affectation").append("<tr><td>"+nom_agent+"</td><td>"+nom_form+"</td><td>point</td></tr>");
+                    $("#table_affectation").append("<tr><td>"+prenom_agent+" "+nom_agent+"</td><td>"+nom_form+"</td><td>Point</td><td>"+nom_zone+"</td><td><center><button class='btn bg-red delete_projet' onclick=delete_affect("+id_affect+")><i class='fas fa-trash'></i></center></button></td></tr>");
 
                   }else if(id_geom_affect == 2){
-                    $("#table_affectation").append("<tr><td>"+nom_agent+"</td><td>"+nom_form+"</td><td>ligne</td></tr>");
+                    $("#table_affectation").append("<tr><td>"+prenom_agent+" "+nom_agent+"</td><td>"+nom_form+"</td><td>Ligne</td><td>"+nom_zone+"</td><td><center><button class='btn bg-red delete_projet' onclick=delete_affect("+id_affect+")><i class='fas fa-trash'></i></center></button></td></tr>");
 
                   }else{
-                    $("#table_affectation").append("<tr><td>"+nom_agent+"</td><td>"+nom_form+"</td><td>polygone</td></tr>");
-
-
+                    $("#table_affectation").append("<tr><td>"+prenom_agent+" "+nom_agent+"</td><td>"+nom_form+"</td><td>Polygone</td><td>"+nom_zone+"</td><td><center><button class='btn bg-red delete_projet' onclick=delete_affect("+id_affect+")><i class='fas fa-trash'></i></center></button></td></tr>");
                   }
-                 
-                    
-
                 }
             });
-            });
-
+          });
         }
     </script>
 

@@ -1,17 +1,17 @@
 <?php
 include_once("db_connect.php");
-$id_projet = $_POST['id_projet'];
+$id_affect = $_POST['id_affect'];
 
 // Delete record
-$query = "DELETE FROM projet WHERE id_projet= '$id_projet'";
+$query = "DELETE FROM affectation WHERE id_affect= '$id_affect'";
 $result = pg_query($query)or die('Échec de la requête : ' . pg_last_error());
 
-$query = "DELETE FROM affectation WHERE id_projet_affect=  '$id_projet'";
-$result = pg_query($query)or die('Échec de la requête : ' . pg_last_error());
 if($result){
     echo 1; 
     // Libère le résultat
     pg_free_result($result);
+} else{
+    echo 0;
 }
 // Ferme la connexion
 pg_close($dbconn);
