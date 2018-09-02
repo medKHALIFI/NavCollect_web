@@ -46,11 +46,14 @@ $(document).ready(function() {
                 success : function(response){
                     //alert("response php"+response);
                     if(response== 1){
-                        swal("Done !", "Une nouvelle zone est ajouté avec succés", "success");
+                        swal("C'est fait! ", "Une nouvelle zone est ajouté avec succés", "success");
                         $("#form_add_zonefac").trigger("reset");
                         $("#submitButton_add").html('Sauvegarder');
                     } 
-                    
+                    if(response==0){
+                        swal("Zone déjà existe", "Réessayer d'attribuer à votre zone un autre nom", "error");
+
+                    }
                     else{
                         swal("ERREUUUUUUR", "Something's not rightttt", "error");
                     }
