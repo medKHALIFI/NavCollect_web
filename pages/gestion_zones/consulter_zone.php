@@ -365,11 +365,12 @@ include '../../php/db_connect.php';
         });
 
         var map1 = new ol.Map({
-            layers: [osm1, bing1],
+            layers: [osm1],
             target: 'map1',
-            controls: ol.control.defaults().extend([  
-                new ol.control.LayerPopup(),
-                new ol.control.FullScreen(),
+            controls: ol.control.defaults({
+              attribution : false,
+              zoom : false
+            }).extend([
                 new ol.control.ScaleLine()
             ]),
             
@@ -380,9 +381,6 @@ include '../../php/db_connect.php';
 
         });
         map1.updateSize();
-
-        var scaleLineControl1 = new ol.control.ScaleLine();
-        scaleLineControl1.setUnits('metric');
            
         var url = "../../php/recupere_zone.php";
         $.getJSON(url, function(result) {
