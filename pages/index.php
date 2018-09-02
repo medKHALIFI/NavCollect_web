@@ -92,6 +92,7 @@ if(!isset($_SESSION["username"]))
                       <li><a href="gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="gestion_données/donnees_collecter.php"><i class="fas fa-database"></i> Données collecter</span></a></li>
                 </ul>
               </div>
             </div>
