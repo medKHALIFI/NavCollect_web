@@ -204,8 +204,6 @@ include '../../php/db_connect.php'
     <script src="../../plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../js/custom.js"></script>
-    <!--ce fichier nexiste pas parmi les js  ???? -->
-    <script src="../../js/gestion_formulaires/add_form.js"></script>
     <!-- jQuery formBuilder -->
     <script src="assets/js/vendor.js"></script>
     <script src="assets/js/form-builder.min.js"></script>
@@ -283,18 +281,18 @@ include '../../php/db_connect.php'
                   
                 },
                 success: function(response) {
-                  if (response==2) {
-                    /*swal({
-                      type: 'C fait',
-                      title: 'Le formulaire que vous venez de créer est bien enregistré',
-                      showConfirmButton: false,
-                      timer: 1500
-                    });*/
-                    swal("C fait!", "Le formulaire que vous venez de créer est bien enregistré","success");
-                    formBuilder.actions.clearFields();
+                  //alert(response);
+                  if(response ==1){
+                    swal("C'est fait! ", "Un nouveau formulaire a été ajouté", "success");
+                    $("#form_add_zonefac").trigger("reset");
+                    $("#submitButton_add").html('Sauvegarder');
+                  } 
+                  if(response ==0){
+                    swal.showInputError("Le nom que vous avez introduisez existe déjà! Réessayer avec un autre!"); 
 
-                  } else {
-                    alert("errooooooooooooor");
+                  }
+                  else{
+                    swal("ERREUUUUUUR", "Something's not rightttt", "error");
                   }
                 } 
               });
