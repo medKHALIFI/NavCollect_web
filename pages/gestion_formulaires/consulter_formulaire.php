@@ -1,6 +1,10 @@
 <?php
 session_start(); 
 include '../../php/db_connect.php';
+if(!isset($_SESSION["username"]))
+{
+ header("location:../login/sign-in.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,20 +36,18 @@ include '../../php/db_connect.php';
     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="../../css/custom.css" rel="stylesheet">
-
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title">&nbsp; <img src="../../images/icon1.png"> <span>NAVCollect</span></a>
+              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
             </div>
-
             <div class="clearfix"></div>
-
+            <br>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -57,9 +59,7 @@ include '../../php/db_connect.php';
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -67,8 +67,7 @@ include '../../php/db_connect.php';
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="index2.html">Profil</a></li>
-                      <li><a href="index3.html">Statistiques</a></li>
+                      <li><a href="../profile.php">Profile</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -84,34 +83,18 @@ include '../../php/db_connect.php';
                       <li><a href="../gestion_zones/zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
-                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="creation_formulaire.php">Créer un nouveau formulaire</a></li>
                       <li><a href="consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="../gestion_donnees/donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -130,7 +113,7 @@ include '../../php/db_connect.php';
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="../profile.php"> Profile</a></li>
                     <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
@@ -164,7 +147,7 @@ include '../../php/db_connect.php';
                   <div class="x_content">
                     <br />
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_form" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_form" >
                           <thead>
                               <tr>
                                   <th>Nom</th>
@@ -182,21 +165,21 @@ include '../../php/db_connect.php';
                                   $update_form=$row[0];
                                   ?>
                               <tr>
-                                  
-                                <td id="nom"><?php  echo $row[5] ?></td>
-                                <td id="date_creation"><?php  echo $row[3] ?></td>
-                                <td id="date_modif"><?php  echo $row[4] ?></td>
-                                <td>
-
-                                  <button onclick="recuper_form(<?php echo $preview_form; ?>)" type="button" name="edit" class="btn bg-blue-sky preview_form" data-toggle="modal" data-target="#modalPreview" id="<?php echo $preview_form; ?>" >
-                                      <i class="fa fa-eye"></i>
-                                  </button>
-                                  <button onclick="recuper_form_text(<?php echo $update_form; ?>)" type="button" name="edit" class="btn bg-orange update_agent" data-toggle="modal" data-target="#modalEdit" id="<?php echo $update_form; ?>"  >
-                                      <i class="fa fa-edit"></i>
-                                  </button>
-                                  <button type="button" name="delete" class="btn bg-red delete_form" id="<?php echo $id_form = $row[0]; ?>">
-                                      <i class="fa fa-trash"></i>
-                                  </button>
+                                <td id="nom" style="width=28%"><?php  echo $row[5] ?></td>
+                                <td id="date_creation"style="width=26%"><?php  echo $row[3] ?></td>
+                                <td id="date_modif" style="width=26%"><?php  echo $row[4] ?></td>
+                                <td style="width=20%"> 
+                                  <center>
+                                    <button onclick="recuper_form(<?php echo $preview_form; ?>)" type="button" name="edit" class="btn bg-blue-sky preview_form" data-toggle="modal" data-target="#modalPreview" id="<?php echo $preview_form; ?>" >
+                                        <i class="fa fa-eye"></i> Visualiser
+                                    </button>
+                                    <button onclick="recuper_form_text(<?php echo $update_form; ?>)" type="button" name="edit" class="btn bg-orange update_agent" data-toggle="modal" data-target="#modalEdit" id="<?php echo $update_form; ?>"  >
+                                        <i class="fa fa-edit"></i> Modifier
+                                    </button>
+                                    <button type="button" name="delete" class="btn bg-red delete_form" id="<?php echo $id_form = $row[0]; ?>">
+                                        <i class="fa fa-trash"></i>Supprimer
+                                    </button>
+                                  </center>
                                 </td>
                               </tr>
                               <?php } 
@@ -233,7 +216,6 @@ include '../../php/db_connect.php';
                 </div>
             </div>
         </div>
-
         <!-- Modals : Modifier un formulaire -->
         <div class="modal fade" id="modalEdit">
             <div class="modal-dialog" role="document">
@@ -253,17 +235,17 @@ include '../../php/db_connect.php';
                 </div>
             </div>
         </div>
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            NAVCollect, NAVCities-Témara, Rabat.
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
       </div>
     </div>
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        NAVCollect, NAVCities-Témara, Rabat.<br>
+        &copy; 2018
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
 
     <!-- jQuery -->
     <script src="../../plugins/jquery/dist/jquery.min.js"></script>
@@ -303,6 +285,9 @@ include '../../php/db_connect.php';
     <script src="../../js/gestion_formulaires/update_form.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
-
   </body>
+  <?php 
+    pg_free_result($result);
+    pg_close($dbconn);
+  ?>
 </html>

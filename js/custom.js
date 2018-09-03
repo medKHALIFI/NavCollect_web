@@ -215,11 +215,11 @@ $(document).ready(function() {
 // /Panel toolbox
 
 // Tooltip
-$(document).ready(function() {
+/*$(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
     });
-});
+});*/
 // /Tooltip
 
 // Progressbar

@@ -1,6 +1,10 @@
 <?php
 session_start(); 
 include '../../php/db_connect.php';
+if(!isset($_SESSION["username"]))
+{
+ header("location:../login/sign-in.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,8 +16,8 @@ include '../../php/db_connect.php';
     <title>NAVCollect | Zones facultatives </title>
 
     <!-- Openlayers -->
-    <link rel="stylesheet" href="../../plugins/ol-3.15.1/ol.css" />
-    <script type="text/javascript" src="../../plugins/ol-3.15.1/ol.js"></script>
+    <link rel="stylesheet" href="../../plugins/ol/ol.css" />
+    <script type="text/javascript" src="../../plugins/ol/ol.js"></script>
     <!-- ol-ext -->
     <link rel="stylesheet" href="../../plugins/ol-ext/ol-ext.css" />
     <script type="text/javascript" src="../../plugins/ol-ext/ol-ext.js"></script>
@@ -39,7 +43,6 @@ include '../../php/db_connect.php';
     <!-- Custom Theme Style -->
     <link href="../../css/custom.css" rel="stylesheet">
     <link href="../../css/map.css" rel="stylesheet">
-
   </head>
 
   <body class="nav-md ">
@@ -48,11 +51,10 @@ include '../../php/db_connect.php';
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title">&nbsp; <img src="../../images/icon1.png"> <span>NAVCollect</span></a>
+              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
             </div>
-
             <div class="clearfix"></div>
-
+            <br>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -91,34 +93,18 @@ include '../../php/db_connect.php';
                       <li><a href="zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
-                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../gestion_formulaire/creation_formulaire.php">Créer un nouveau formulaire</a></li>
                       <li><a href="../gestion_formulaire/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="../gestion_donnees/donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -262,7 +248,6 @@ include '../../php/db_connect.php';
                           </div>
                         </form>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -282,18 +267,18 @@ include '../../php/db_connect.php';
                 </div>
             </div>
           </div>
-        </div>
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            NAVCollect, NAVCities-Témara, Rabat.
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        </div>   
       </div>
     </div>
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        NAVCollect, NAVCities-Témara, Rabat. <br>
+        &copy; 2018
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
 
     <!-- jQuery -->
     <script src="../../plugins/jquery/dist/jquery.min.js"></script>
@@ -420,9 +405,9 @@ include '../../php/db_connect.php';
 
         }
     </script>
-
-
   </body>
-  <?php pg_close($dbconn);
- ?>
+  <?php 
+    pg_free_result($result);
+    pg_close($dbconn);
+  ?>
 </html>

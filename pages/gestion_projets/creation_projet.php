@@ -1,6 +1,10 @@
 <?php
 session_start(); 
-include_once '../../php/db_connect.php';
+include '../../php/db_connect.php';
+if(!isset($_SESSION["username"]))
+{
+ header("location:../login/sign-in.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,12 +14,11 @@ include_once '../../php/db_connect.php';
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <title>NAVCollect | Créer un projet </title>
-
     <!-- jQuery -->
     <script src="../../plugins/jquery/dist/jquery.min.js"></script>
     <!-- Openlayers -->
-    <link rel="stylesheet" href="../../plugins/ol-3.15.1/ol.css" />
-    <script type="text/javascript" src="../../plugins/ol-3.15.1/ol.js"></script>
+    <link rel="stylesheet" href="../../plugins/ol/ol.css" />
+    <script type="text/javascript" src="../../plugins/ol/ol.js"></script>
     <!-- ol-ext -->
     <link rel="stylesheet" href="../../plugins/ol-ext/ol-ext.css" />
     <script type="text/javascript" src="../../plugins/ol-ext/ol-ext.js"></script>
@@ -47,13 +50,11 @@ include_once '../../php/db_connect.php';
     <!--  SmartWizard CSS -->
     <link href="../../plugins/SmartWizard4/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" />
     <link href="../../plugins/SmartWizard4/dist/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css"/>
-
     <style>
     	.col-half-offset{
     		margin-left:4.166666667%
     	}
     </style>
- 
   </head>
 
   <body class="nav-md ">
@@ -62,11 +63,10 @@ include_once '../../php/db_connect.php';
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title">&nbsp; <img src="../../images/icon1.png"> <span>NAVCollect</span></a>
+              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
             </div>
-
             <div class="clearfix"></div>
-
+            <br>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -78,17 +78,15 @@ include_once '../../php/db_connect.php';
               </div>
             </div>
             <!-- /menu profile quick info -->
-            <br />
+            <br/>
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Menu</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="../index.html">Profil</a></li>
-                      <li><a href="../index.html">Statistiques</a></li>
+                      <li><a href="../profile.php">Profile</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -102,40 +100,22 @@ include_once '../../php/db_connect.php';
                       <li><a href="../gestion_zones/ajouter_zone.php">Ajouter une nouvelle zone</a></li>
                       <li><a href="../gestion_zones/consulter_zone.php">Consulter les zones</a></li>
                       <li><a href="../gestion_zones/zone_facultative.php">Zones facultatives</a></li>
-
                     </ul>
                   </li>
-                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i>Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../gestion_formulaires/creation_formulaire.php">Créer un formulaire</a></li>
                       <li><a href="../gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="../gestion_donnees/donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
-
         <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
@@ -143,7 +123,6 @@ include_once '../../php/db_connect.php';
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -151,19 +130,17 @@ include_once '../../php/db_connect.php';
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><span class="glyphicon glyphicon-off pull-right"></span> Se déconnecter</a></li>
+                    <li><a href="../profile.php"> Profile</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out-alt pull-righ"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
             </nav>
           </div>
-
         </div>
         <!-- /top navigation -->
 
         <!-- page content -->
-
         <div class="right_col" role="main">
           <div class="">
             <div class="clearfix"></div>
@@ -178,100 +155,99 @@ include_once '../../php/db_connect.php';
                   <div class="x_content">
                   	<br>
                     <!-- SmartWizard Content -->
-                      <div id="smartwizard">
-                        <ul>
-                          <li></li>
-                          <li></li>
-                          <li><a href="#step-1">Étape 1<br /><small>Décrivez votre projet</small></a></li>
-                          <li><a href="#step-2">Étape 2<br /><small>Affectation (Agent-Zone-Formulaire-Géométrie)</small></a></li>
-                        </ul>
+                    <div id="smartwizard">
+                      <ul>
+                        <li></li>
+                        <li></li>
+                        <li><a href="#step-1">Étape 1<br /><small>Décrivez votre projet</small></a></li>
+                        <li><a href="#step-2">Étape 2<br /><small>Affectation (Agent-Zone-Formulaire-Géométrie)</small></a></li>
+                      </ul>
 
-                        <div>
-                          <!--Décrivez votre projet-->
-                          <div id="step-1" class="" >
-                            <form class="form-horizontal form-label-left" id="form_projet">
-                            	<div class="form-group form-float">
-                                    <div class="form-line form_float">
-                                        <input type="text" class="form-control" name="name" id="nom_projet" oninvalid="this.setCustomValidity('Ce champ est obligatoire')" oninput="setCustomValidity('')"  required>
-                                        <label class="form-label">Nom de projet <span style="color: red;">*</span></label>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <br> <br>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <textarea name="description_projet" cols="30" rows="5" class="form-control no-resize" id="description_projet"></textarea>
-                                        <label class="form-label">Description de projet</label>
-                                    </div>
-                                </div>
-                          	</form>
-                          </div>
-
-                          <!--Affectation-->
-                          <div id="step-2" class="">
-                            <br> 
-                            <p class="text-center">Vous devez affecter à chaque agent, un ou plusieurs zones/formulaire/types de géométrie ! </p>
-                            <br>
-                            <div class="row">
-                              <div class="col-md-2" align="center">
-                                <select id="selectAgent" class="selectpicker show-tick" data-live-search="true" >
-                                  <option selected disabled value=""> Sélectionnez un agent  </option>
-                                  <?php 
-                                  $query = 'SELECT  * FROM agent';
-                                  $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-                                  while ($row=pg_fetch_row($result)) {
-                                  ?>
-                                  <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[3] ?></option>
-                                  <?php } ?>
-                                </select> 
+                      <div>
+                        <!--Décrivez votre projet-->
+                        <div id="step-1" class="" >
+                          <form class="form-horizontal form-label-left" id="form_projet">
+                            <div class="form-group form-float">
+                                  <div class="form-line form_float">
+                                    <input type="text" class="form-control" name="name" id="nom_projet" oninvalid="this.setCustomValidity('Ce champ est obligatoire')" oninput="setCustomValidity('')"  required>
+                                    <label class="form-label">Nom de projet <span style="color: red;">*</span></label>
+                                    <div class="help-block with-errors"></div>
+                                  </div>
                               </div>
-
-                              <div class="col-md-2 col-half-offset" align="center">
-                                <select id="selectZone" class="selectpicker show-tick" data-live-search="true" >
-                                  <option selected disabled value=""> Sélectionnez une zone  </option>
-                                  <?php 
-                                  $query = 'SELECT  * FROM zone_etude';
-                                  $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-                                  while ($row=pg_fetch_row($result)) {
-                                  ?>
-                                 <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[2] ?></option>
-                                 <?php } ?>
-                                </select>
+                              <br> <br>
+                              <div class="form-group form-float">
+                                  <div class="form-line">
+                                    <textarea name="description_projet" cols="30" rows="5" class="form-control no-resize" id="description_projet"></textarea>
+                                    <label class="form-label">Description de projet</label>
+                                  </div>
                               </div>
+                          </form>
+                        </div>
 
-                              <div class="col-md-2 col-half-offset" align="center">
-                                <select id="selectForm" class="selectpicker show-tick" data-live-search="true" >
-                                  <option selected disabled value=""> Sélectionnez un formulaire  </option>
-                                  <?php
-                                  $query = 'SELECT  * FROM formulaire';
-                                  $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-                                  while ($row=pg_fetch_row($result)) {
-                                  ?>
-                                  <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[5] ?></option>
-                                  <?php } ?>
-                                </select> 
-                              </div>
-
-                              <div class="col-md-2 col-half-offset" align="center">
-                            	<select id="selectGeometry" class="selectpicker show-tick" data-live-search="true" >
-                                  <option selected disabled value=""> Sélectionnez une géométrie  </option>
-                                  <option id="point" value="1">Point</option>
-                                  <option id="linestring" value="2">Ligne</option>
-                                  <option id="polygon" value="3">Polyone</option>
-                                </select>
-                               </div>
-
-                              <div class="col-md-2 col-half-offset" align="center">
-                                <button id="affecter" class="btn bg-green waves-effect" type="button"> Affecter</button>
-                              </div>
-                            </div>                          
-                            <br>
-                            <div class="row ">
-                                <div id="map" class="map"></div>
-                                <div id="show_form"></div>
+                        <!--Affectation-->
+                        <div id="step-2" class="">
+                          <br> 
+                          <p class="text-center">Vous devez affecter à chaque agent, un ou plusieurs zones/formulaires/types de géométrie ! </p>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-2" align="center">
+                              <select id="selectAgent" class="selectpicker show-tick" data-live-search="true" >
+                                <option selected disabled value="">  Agent  </option>
+                                <?php 
+                                $query = 'SELECT  * FROM agent';
+                                $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+                                while ($row=pg_fetch_row($result)) {
+                                ?>
+                                <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[3] ?></option>
+                                <?php } ?>
+                              </select> 
                             </div>
+
+                            <div class="col-md-2 col-half-offset" align="center">
+                              <select id="selectZone" class="selectpicker show-tick" data-live-search="true" >
+                                <option selected disabled value=""> Zone d'étude  </option>
+                                <?php 
+                                $query = 'SELECT  * FROM zone_etude';
+                                $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+                                while ($row=pg_fetch_row($result)) {
+                                ?>
+                                <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[2] ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+
+                            <div class="col-md-2 col-half-offset" align="center">
+                              <select id="selectForm" class="selectpicker show-tick" data-live-search="true" >
+                                <option selected disabled value=""> Formulaire  </option>
+                                <?php
+                                $query = 'SELECT  * FROM formulaire';
+                                $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+                                while ($row=pg_fetch_row($result)) {
+                                ?>
+                                <option id="<?php  echo $row[0] ?>" value="<?php  echo $row[0] ?>"><?php  echo $row[5] ?></option>
+                                <?php } ?>
+                              </select> 
+                            </div>
+
+                            <div class="col-md-2 col-half-offset" align="center">
+                            <select id="selectGeometry" class="selectpicker show-tick" data-live-search="true" >
+                                <option selected disabled value=""> Géométrie  </option>
+                                <option id="point" value="1">Point</option>
+                                <option id="linestring" value="2">Ligne</option>
+                                <option id="polygon" value="3">Polyone</option>
+                              </select>
+                              </div>
+                            <div class="col-md-2 col-half-offset" align="center">
+                              <button id="affecter" class="btn bg-green waves-effect" type="button"> Affecter</button>
+                            </div>
+                          </div>                          
+                          <br>
+                          <div class="row">
+                            <div id="map" class="map"></div>
+                            <div id="show_form" style="margin: 30px"></div>
                           </div>
                         </div>
+                      </div>
                     </div>
                    <!-- End SmartWizard Content -->
                   </div>
@@ -281,20 +257,17 @@ include_once '../../php/db_connect.php';
           </div>
         </div>
         <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            NAVCollect, NAVCities-Témara, Rabat. <br>
-            &copy; 2018
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-
       </div>
     </div>
-
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        NAVCollect, NAVCities-Témara, Rabat. <br>
+        &copy; 2018
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
 
     <!-- Bootstrap -->
     <script src="../../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -321,26 +294,27 @@ include_once '../../php/db_connect.php';
     <script src="../../plugins/bootstrap-form-validator/validator.min.js"></script>
 
     <script type="text/javascript">
-
-		// Déclaration de variable "map"
-		var map = new ol.Map({
-		    target: 'map',
-		    view: new ol.View({
-		      zoom: 2,
-		      center: [0, 0]
-		    }),
-		    layers: [new ol.layer.Tile({
-		      name: 'OSM',
-		      source: new ol.source.OSM()
-		    })],
-		    controls: ol.control.defaults().extend([  
-		      new ol.control.FullScreen(),
-		      new ol.control.ScaleLine()
-		    ]),
-		});
-
-      </script>
-
+      var map = new ol.Map({
+        target: 'map',
+        view: new ol.View({
+          zoom: 2,
+          center: [0, 0]
+        }),
+        layers: [new ol.layer.Tile({
+          name: 'OSM',
+          source: new ol.source.OSM()
+        })],
+        controls: ol.control.defaults({
+          attribution : false,
+          zoom : false
+        }).extend([
+          new ol.control.ScaleLine()
+        ]),
+      });
+    </script>
   </body>
-  <?php pg_close($dbconn); ?>
+  <?php 
+    pg_free_result($result);
+    pg_close($dbconn);
+  ?>
 </html>

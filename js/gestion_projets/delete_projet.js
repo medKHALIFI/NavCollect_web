@@ -3,9 +3,7 @@ $(document).ready(function() {
 
     $('.delete_projet').click(function() {
         var el = this;
-        alert(el);
         var id_projet = $(this).attr("id");
-        alert("id du projet supprimer" + id_projet);
 
         swal({
             title: "Etes-vous sûr que vous voulez supprimer ce projet?",

@@ -1,12 +1,10 @@
 <?php
 session_start(); 
 include '../php/db_connect.php';
-
 if(!isset($_SESSION["username"]))
 {
- header("location:index.php");
+ header("location:login/sign-in.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +43,6 @@ if(!isset($_SESSION["username"]))
             <div class="navbar nav_title" style="border: 0;">
               <center><a href="index.php" class="site_title"><img src="../images/logo.png"></a></center> 
             </div>
-            
             <div class="clearfix"></div>
             <br>
             <!-- menu profile quick info -->
@@ -83,34 +80,18 @@ if(!isset($_SESSION["username"]))
                       <li><a href="gestion_zones/zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
-                  <li><a href="gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i>Gestion des formulaires<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="gestion_formulaires/creation_formulaire.php">Créer un formulaire</a></li>
                       <li><a href="gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="gestion_donnees/donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -121,7 +102,6 @@ if(!isset($_SESSION["username"]))
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -136,7 +116,6 @@ if(!isset($_SESSION["username"]))
               </ul>
             </nav>
           </div>
-
         </div>
         <!-- /top navigation -->
 
@@ -151,9 +130,7 @@ if(!isset($_SESSION["username"]))
           </div>
           <br> <br> <br>
           <!-- Widgets -->
-
           <div class="clearfix"></div>
-
           <div class="row">
             <!-- Column -->
             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -214,14 +191,14 @@ if(!isset($_SESSION["username"]))
                             </div>
 
                             <div class="form-group form-float">
-                                <label class="form-label">Mots de passe</label>
+                                <label class="form-label">Mot de passe</label>
                                 <div class="form-line">
                                     <input type="password" class="form-control password_update" id="password_update" name="password_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
-                                <label class="form-label">Mots de passe (Confirmation)</label>
+                                <label class="form-label">Mot de passe (Confirmation)</label>
                                 <div class="form-line">
                                     <input type="password" class="form-control password1_update" id="password1_update" name="password1_update" required autofocus>
                                 </div>
@@ -248,11 +225,11 @@ if(!isset($_SESSION["username"]))
 
     <!-- footer content -->
     <footer>
-        <div class="pull-right">
+      <div class="pull-right">
         NAVCollect, NAVCities-Témara, Rabat. <br>
         &copy; 2018
-        </div>
-        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
     </footer>
     <!-- /footer content -->
 

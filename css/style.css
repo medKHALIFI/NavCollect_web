@@ -1909,12 +1909,6 @@
   .bg-teal .content .number {
     color: #fff !important; }
 
-.bg-green {
-  background-color: #4CAF50 !important;
-  color: #fff; }
-  .bg-green .content .text,
-  .bg-green .content .number {
-    color: #fff !important; }
 
 .bg-light-green {
   background-color: #8BC34A !important;
@@ -8040,3 +8034,16 @@ html.ie11 .dropdown-menu ul.menu li a {
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
 
+
+.bg-green {
+  background-color: #1ABB9C !important;
+  color: #fff; }
+  .bg-green .content .text,
+  .bg-green .content .number {
+    color: #fff !important;
+}
+.bg-green {
+  background: #1ABB9C !important;
+  border: 1px solid #1ABB9C !important;
+  color: #fff
+}

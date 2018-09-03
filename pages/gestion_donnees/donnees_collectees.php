@@ -1,6 +1,10 @@
 <?php
 session_start(); 
 include '../../php/db_connect.php';
+if(!isset($_SESSION["username"]))
+{
+ header("location:../login/sign-in.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,9 +12,15 @@ include '../../php/db_connect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <title>NAVCollect | Données collecter </title>
-
+    <title>NAVCollect | Données collectées </title>
+    <!-- Openlayers -->
+    <link rel="stylesheet" href="../../plugins/ol/ol.css" />
+    <script type="text/javascript" src="../../plugins/ol/ol.js"></script>
+    <!-- ol-ext -->
+    <link rel="stylesheet" href="../../plugins/ol-ext/ol-ext.css" />
+    <script type="text/javascript" src="../../plugins/ol-ext/ol-ext.js"></script>
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/dist/jquery.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -32,7 +42,7 @@ include '../../php/db_connect.php';
     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="../../css/custom.css" rel="stylesheet">
-
+    <link href="../../css/map.css" rel="stylesheet">
   </head>
 
   <body class="nav-md ">
@@ -41,11 +51,10 @@ include '../../php/db_connect.php';
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title">&nbsp; <img src="../../images/icon1.png"> <span>NAVCollect</span></a>
+              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
             </div>
-
             <div class="clearfix"></div>
-
+            <br>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -57,9 +66,7 @@ include '../../php/db_connect.php';
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -67,7 +74,7 @@ include '../../php/db_connect.php';
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="index2.html">Profil</a></li>
+                      <li><a href="../profile.php">Profile</a></li>
                      
                     </ul>
                   </li>
@@ -84,34 +91,18 @@ include '../../php/db_connect.php';
                       <li><a href="../gestion_zones/zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
-                  <li><a href="index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../gestion_formulaires/creation_formulaire.php">Créer un nouveau formulaire</a></li>
                       <li><a href="../gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -130,14 +121,13 @@ include '../../php/db_connect.php';
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="../profile.php"> Profile</a></li>
                     <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
             </nav>
           </div>
-
         </div>
         <!-- /top navigation -->
 
@@ -145,35 +135,30 @@ include '../../php/db_connect.php';
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              
             </div>
-
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <div class="col-xs-7 ">
-                      <h2>Gestion des données collecter</h2>
+                    <div class="col-xs-7">
+                      <h2>Consulter les données colléctées</h2>
                     </div>
-                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
+                    <br/>
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_agent" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_agent" >
                           <thead>
                               <tr>
-                                  
-                                  <th>projet</th>
-                                  <th>agent</th>
-                                  <th>zone</th>
-                                  <th>formulaire</th>
-                                  <th>Donnée de formulaire</th>
-                                  <th>donnée digetaliser</th>
-                                  <th>traitement</th>
-                            
+                                <th>Projet</th>
+                                <th>Agent</th>
+                                <th>Zone d'étude</th>
+                                <th>Formulaire</th>
+                                <th>Données de formulaire</th>
+                                <th>Zone digitalisée</th>
+                                <th>Supprimer</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -189,12 +174,15 @@ include '../../php/db_connect.php';
                                 <td id="zone" style="width: 10%"><?php  echo $row[3] ?></td>
                                 <td id="form" style="width: 10%"><?php  echo $row[4] ?></td>
                                 <td id="donnee_form" style="width: 20%"><?php  echo $row[5] ?></td>
-                                <td id="data_geojson" style="width: 20%"><?php  echo $row[6] ?></td>
+                                <td id="data_geojson" style="width: 20%">
+                                  <button name="preview" class="btn bg-blue-sky preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
+                                    <i class="material-icons">map</i>
+                                  </button>
+                                </td>
                                 <td style="width: 20%">
-                                    
-                                    <button type="button" name="delete" class="btn bg-red waves-float delete_data" id="<?php echo $id_agent = $row[0]; ?>">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                  <button type="button" name="delete" class="btn bg-red waves-float delete_data" id="<?php echo $id_agent = $row[0]; ?>">
+                                      <i class="fa fa-trash"></i>
+                                  </button>
                                 </td>
                               </tr>
                               <?php } ?>
@@ -209,6 +197,22 @@ include '../../php/db_connect.php';
           </div>
         </div>
         <!-- /page content -->
+        <!-- Modals : Prévisualiser la zone  -->
+        <div class="modal fade" id="previewMap">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Visualiser la zone </h4>
+                </div>
+                <div class="modal-body" id="bodyPreview">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+          </div>
+        </div>
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -220,9 +224,6 @@ include '../../php/db_connect.php';
         <!-- /footer content -->
       </div>
     </div>
-
-    <!-- jQuery -->
-    <script src="../../plugins/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -254,12 +255,15 @@ include '../../php/db_connect.php';
     <!-- Custom Theme Scripts -->
     <script src="../../js/custom.js"></script>
     <script src="../../js/gestion_agents/jquery-datatable.js"></script>
-    <script src="../../js/gestion_agents/add_user.js"></script>
-    <script src="../../js/gestion_data/delete_data.js"></script>
-    <script src="../../js/gestion_agents/update_user.js"></script>
+    <script src="../../js/gestion_donnees/donnees_collectees.js"></script>
+    <script src="../../js/gestion_donnees/delete_data.js"></script>
+    <script src="../../js/gestion_donnees/preview_zone.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
 
   </body>
-  <?php pg_close($dbconn); ?>
+  <?php 
+    pg_free_result($result);
+    pg_close($dbconn);
+  ?>
 </html>

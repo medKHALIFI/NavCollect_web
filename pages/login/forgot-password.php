@@ -26,8 +26,11 @@
 <body class="fp-page">
     <div class="fp-box">
         <div class="logo">
+        <center>
+            <img src="../../images/logo.png" alt="">
             <a href="javascript:void(0);">NAVCollect</a>
             <small>Collecte des données SIG, NAVCities</small>
+        </center>
         </div>
         <div class="card">
             <div class="body">

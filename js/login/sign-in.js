@@ -9,6 +9,10 @@ $(document).ready(function() {
                 required:true
             }
         },
+        messages: {
+			'username': "Vous devez entrez votre pseudo",
+			'password': "Vous devez entrez votre mot de passe",	
+		},
         highlight: function (input) {
             console.log(input);
             $(input).parents('.form-line').addClass('error');

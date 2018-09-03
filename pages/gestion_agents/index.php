@@ -1,6 +1,10 @@
 <?php
 session_start(); 
 include '../../php/db_connect.php';
+if(!isset($_SESSION["username"]))
+{
+ header("location:../login/sign-in.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +14,6 @@ include '../../php/db_connect.php';
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <title>NAVCollect | Gestion des agents </title>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -32,20 +35,17 @@ include '../../php/db_connect.php';
     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="../../css/custom.css" rel="stylesheet">
-
   </head>
-
   <body class="nav-md ">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title">&nbsp; <img src="../../images/icon1.png"> <span>NAVCollect</span></a>
+              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
             </div>
-
             <div class="clearfix"></div>
-
+            <br>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -67,8 +67,7 @@ include '../../php/db_connect.php';
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="index2.html">Profil</a></li>
-                      <li><a href="index3.html">Statistiques</a></li>
+                      <li><a href="../profile.php">Profile</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -84,34 +83,18 @@ include '../../php/db_connect.php';
                       <li><a href="../gestion_zones/zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
-                  <li><a href="index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../gestion_formulaires/creation_formulaire.php">Créer un nouveau formulaire</a></li>
                       <li><a href="../gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
+                  <li><a href="index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
+                  <li><a href="../gestion_donnees/donnees_collectees.php"><i class="fa fa-database"></i>Les données collectées</a></li>
                 </ul>
               </div>
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Se déconnecter" href="../../php/logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -130,7 +113,7 @@ include '../../php/db_connect.php';
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="../profile.php"> Profile</a></li>
                     <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
@@ -164,7 +147,7 @@ include '../../php/db_connect.php';
                   <div class="x_content">
                     <br />
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_agent" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_agent" >
                           <thead>
                               <tr>
                                   
@@ -174,8 +157,8 @@ include '../../php/db_connect.php';
                                   <th>Téléphone</th>
                                   <th>Date de création</th>
                                   <th>Date de modification</th>
-                                  <th>Code téléphonique IMEI</th>
-                                  <th>Action</th>
+                                  <th>Code IMEI</th>
+                                  <th>Actions</th>
                               </tr>
                           </thead>
                           <tbody>

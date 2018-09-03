@@ -2,22 +2,15 @@
 session_start();
 include_once("db_connect.php");
 
-
-
-//variables à partir du formulaire
-
 $username = trim($_POST['username']);
 $password = trim($_POST['password']);
-
-
-// Exécution de la requête SQL
 
 $query = "SELECT * FROM administrateur where pseudo_admin= '$username' and password_admin='$password' ";
 $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 
 if (pg_num_rows($result) == 0) {
 
-	echo "Email ou mot de passe incorrecte"; // wrong details 
+	echo "Email ou mot de passe incorrecte"; 
 
 }
 else{
@@ -47,6 +40,5 @@ else{
 pg_free_result($result);
 
 pg_close($dbconn);
-
 
 ?>
