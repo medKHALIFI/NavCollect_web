@@ -76,8 +76,7 @@ if(!isset($_SESSION["username"]))
                   <li><a><i class="fa fa-home"></i> Général <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../index.php">Acceuil</a></li>
-                      <li><a href="index2.html">Profil</a></li>
-                      <li><a href="index3.html">Statistiques</a></li>
+                      <li><a href="../profile.php">Profile</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des projets <span class="fa fa-chevron-down"></span></a>
@@ -95,8 +94,8 @@ if(!isset($_SESSION["username"]))
                   </li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../gestion_formulaire/creation_formulaire.php">Créer un nouveau formulaire</a></li>
-                      <li><a href="../gestion_formulaire/consulter_formulaire.php">Consulter les formulaires</a></li>
+                      <li><a href="../gestion_formulaires/creation_formulaire.php">Créer un nouveau formulaire</a></li>
+                      <li><a href="../gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
                   <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
@@ -123,7 +122,7 @@ if(!isset($_SESSION["username"]))
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="../profile.php"> Profile</a></li>
                     <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
