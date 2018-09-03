@@ -189,17 +189,6 @@ image: new ol.style.Circle({
     })
 })
 })
-
-var pedit = new ol.control.Toggle({   
-    html: '<i class="far fa-circle"></i>',
-    title: 'Ajouter un cercle',
-    interaction: new ol.interaction.Draw({  
-        type: 'Circle',
-        source: vector.getSource(),
-        style: style_draw
-    })
-});
-editbar.addControl ( pedit );
 //Square
 var pedit = new ol.control.Toggle({   
     html: '<i class="fas fa-vector-square"></i>',
@@ -361,10 +350,10 @@ if(bool == false){
         if (response==1) {
             swal("C'est fait !", "Une nouvelle zone a bien été ajoutée", "success");
         }
-        if (response==0) {
+        else if (response==0) {
             swal.showInputError("Le nom que vous avez attribuez à cette zone existe déjà. Veuillez réessayer!");
         }
-        else{
+        else if(response==2){
             alert("Erreur serveur");
         }
         } 
@@ -372,7 +361,6 @@ if(bool == false){
     }
     );
 }else{
-    //bool=true
     intersection_test();
 }
 
@@ -446,10 +434,10 @@ $.ajax({
             if (response==1) {
             swal("C'est fait !", "Une nouvelle zone a bien été ajoutée", "success");
             }
-            if (response==0) {
+            else if (response==0) {
             swal.showInputError("Le nom que vous avez attribuez à cette zone existe déjà. Veuillez réessayer!");
             }
-            else{
+            else if(response==2){
             alert("Erreur serveur");
             }
         } 
