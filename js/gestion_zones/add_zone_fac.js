@@ -50,11 +50,11 @@ $(document).ready(function() {
                         $("#form_add_zonefac").trigger("reset");
                         $("#submitButton_add").html('Sauvegarder');
                     } 
-                    if(response==0){
+                    else if(response==0){
                         swal("Zone déjà existe", "Réessayer d'attribuer à votre zone un autre nom", "error");
 
                     }
-                    else{
+                    else if(response==2){
                         swal("ERREUUUUUUR", "Something's not rightttt", "error");
                     }
                 }
