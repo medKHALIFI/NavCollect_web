@@ -86,8 +86,8 @@ if(!isset($_SESSION["username"]))
                   <li><a><i class="fa fa-map"></i> Gestion des zones <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../gestion_zones/ajouter_zone.php">Ajouter une nouvelle zone</a></li>
-                      <li><a href="../gestion_zonesconsulter_zone.php">Consulter les zones</a></li>
-                      <li><a href="../gestion_zoneszone_facultative.php">Zones facultatives</a></li>
+                      <li><a href="../gestion_zones/consulter_zone.php">Consulter les zones</a></li>
+                      <li><a href="../gestion_zones/zone_facultative.php">Zones facultatives</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
