@@ -88,8 +88,8 @@ include '../../php/db_connect.php';
                   </li>
                   <li><a><i class="fa fa-list-alt"></i> Gestion des formulaires <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../gestion_formulaire/creation_formulaire.php">Créer un nouveau formulaire</a></li>
-                      <li><a href="../gestion_formulaire/consulter_formulaire.php">Consulter les formulaires</a></li>
+                      <li><a href="../gestion_formulaires/creation_formulaire.php">Créer un nouveau formulaire</a></li>
+                      <li><a href="../gestion_formulaires/consulter_formulaire.php">Consulter les formulaires</a></li>
                     </ul>
                   </li>
                   <li><a href="../gestion_agents/index.php"><i class="fa fa-users"></i> Gestion des agents</span></a></li>
