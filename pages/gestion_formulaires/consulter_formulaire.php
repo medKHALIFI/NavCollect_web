@@ -44,7 +44,7 @@ if(!isset($_SESSION["username"]))
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
+              <center><a href="index.php" class="site_title"><i></i> <img src="../../images/logo.png"> <span></span></a></center>
             </div>
             <div class="clearfix"></div>
             <br>
@@ -205,9 +205,9 @@ if(!isset($_SESSION["username"]))
                         <h4 class="modal-title" id="defaultModalLabel">Visualiser votre formulaire</h4>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #ededec; margin: 30px; padding:30px">
                         <div>
-                          <div id="form_user" class="contaire"></div>
+                          <div id="form_user" ></div>
                         </div>
                     </div>
                     <div class="modal-footer">

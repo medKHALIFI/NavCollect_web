@@ -182,11 +182,7 @@ html , body{
     font-size: 27px;
     margin: 13px 0 0 3px
 }
-.site_title i {
-    border: 1px solid #EAEAEA;
-    padding: 5px 6px;
-    border-radius: 50%
-}
+
 .site_title img {
     max-height: 66px;
     max-width: 180px;

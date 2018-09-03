@@ -38,7 +38,7 @@ $(document).ready(function() {
             },
             success : function(response){ 
 
-                if(response=="ok"){
+                if(response==1){
 
                     location.replace("../index.php");
 

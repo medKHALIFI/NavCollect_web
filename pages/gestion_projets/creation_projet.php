@@ -63,7 +63,7 @@ if(!isset($_SESSION["username"]))
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
+              <center><a href="index.php" class="site_title"><i></i> <img src="../../images/logo.png"> <span></span></a></center>
             </div>
             <div class="clearfix"></div>
             <br>
@@ -242,9 +242,9 @@ if(!isset($_SESSION["username"]))
                             </div>
                           </div>                          
                           <br>
-                          <div class="row">
-                            <div id="map" class="map"></div>
-                            <div id="show_form" style="margin: 30px"></div>
+                          <div class="row" style="background: #ededec;">
+                            <div id="map" class="map" ></div>
+                            <div id="show_form" style="margin: 30px;"></div>
                           </div>
                         </div>
                       </div>

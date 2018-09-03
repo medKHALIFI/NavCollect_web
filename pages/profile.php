@@ -41,7 +41,7 @@ if(!isset($_SESSION["username"]))
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <center><a href="index.php" class="site_title"><img src="../images/logo.png"></a></center> 
+              <center><a href="index.php" class="site_title"><i></i> <img src="../../images/logo.png"> <span></span></a></center>
             </div>
             <div class="clearfix"></div>
             <br>
@@ -193,14 +193,14 @@ if(!isset($_SESSION["username"]))
                             <div class="form-group form-float">
                                 <label class="form-label">Mot de passe</label>
                                 <div class="form-line">
-                                    <input type="password" class="form-control password_update" id="password_update" name="password_update" required autofocus>
+                                    <input type="text" class="form-control password_update" id="password_update" name="password_update" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group form-float">
                                 <label class="form-label">Mot de passe (Confirmation)</label>
                                 <div class="form-line">
-                                    <input type="password" class="form-control password1_update" id="password1_update" name="password1_update" required autofocus>
+                                    <input type="text" class="form-control password1_update" id="password1_update" name="password1_update" required autofocus>
                                 </div>
                             </div>
 
@@ -212,7 +212,7 @@ if(!isset($_SESSION["username"]))
                             </div>
 
                             <button type="submit" class="btn bg-green waves-effect pull-right" id="submitButton_update" >Sauvegarder</button>
-                            
+     
                         </form>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ if (pg_num_rows($result) == 0) {
 
 }
 else{
-	echo "ok";
+	echo 1;
 	
 	$row=pg_fetch_array($result);
 	$_SESSION["id_admin"] = $row["id_admin"];

@@ -51,7 +51,7 @@ if(!isset($_SESSION["username"]))
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <center><a href="../index.php" class="site_title"><img src="../../images/logo.png"></a></center>
+              <center><a href="index.php" class="site_title"><i></i> <img src="../../images/logo.png"> <span></span></a></center>
             </div>
             <div class="clearfix"></div>
             <br>
@@ -168,7 +168,7 @@ if(!isset($_SESSION["username"]))
                               <td>
                                 <center>
                                   <button name="preview" class="btn bg-blue-sky affectation" data-toggle="modal" id="<?php echo $affectation =$row[0]; ?>">
-                                    <i class="far fa-eye"></i> Visualiser
+                                    <i class="far fa-eye"></i> Liste
                                   </button>
                                 </center>
                               <td>

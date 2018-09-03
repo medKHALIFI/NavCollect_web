@@ -9,7 +9,6 @@ $(document).ready(function(){
             $("#email_update").val(field.email_admin);
             $("#pseudo_update").val(field.pseudo_admin);
             $("#password_update").val(field.password_admin);
-            $("#password1_update").val(field.password_admin);
 			
 		});
 	});
