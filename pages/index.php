@@ -119,8 +119,8 @@ if(!isset($_SESSION["username"]))
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3><strong> Acceuil</strong></h3>
+              <div class="title_left ">
+                <h3><strong> Acceuil </strong></h3> 
               </div>
             </div>
           </div>

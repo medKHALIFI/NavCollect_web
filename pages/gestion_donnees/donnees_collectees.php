@@ -35,6 +35,9 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -149,6 +152,19 @@ if(!isset($_SESSION["username"]))
                     <div class="col-xs-7">
                       <h2>Consulter les données colléctées</h2>
                     </div>
+                    <div >
+                    <center>
+                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
+                          <i class="fas fa-sync"></i>
+                            </button>
+                    </center>
+               
+              </div>
+              <script>
+                function ref(){
+                  location.replace("donnees_collectees.php");
+                }
+                </script>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

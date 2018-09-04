@@ -23,6 +23,9 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -138,7 +141,19 @@ if(!isset($_SESSION["username"]))
                   <div class="x_title">
                     <div class="col-xs-7 ">
                       <h2>Gestion des agents</h2>
+                      <center>
+                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
+                          <i class="fas fa-sync"></i>
+                            </button>
+                    </center>
+               
                     </div>
+              <script>
+                function ref(){
+                  location.replace("index.php");
+                }
+                </script>
+
                     <div class="col-xs-5 align-right">
                       <button type="button" class="btn bg-green waves-float m-r-20" data-toggle="modal" data-target="#modalUser"> <i class="fa fa-plus"></i> &nbsp; Ajouter un agent</button>
                     </div>

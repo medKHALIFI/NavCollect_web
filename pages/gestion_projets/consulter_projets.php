@@ -141,6 +141,19 @@ if(!isset($_SESSION["username"]))
                     <div class="col-xs-7 ">
                       <h2>Consulter vos projets</h2>
                     </div>
+                    <div >
+                    <center>
+                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
+                          <i class="fas fa-sync"></i>
+                            </button>
+                    </center>
+               
+              </div>
+              <script>
+                function ref(){
+                  location.replace("consulter_projets.php");
+                }
+                </script>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
