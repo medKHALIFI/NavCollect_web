@@ -7,6 +7,9 @@ $query = "DELETE FROM agent WHERE id_agent= '$id_agent'";
 $result = pg_query($query);
 
 if($result){
+	// supprimer les affectation de cet agent
+	$query = "DELETE FROM affectation WHERE id_agent_affect= '$id_agent'";
+$result = pg_query($query);
 	echo 1; 
 	pg_free_result($result);
 

@@ -20,7 +20,12 @@ if(!isset($_SESSION["username"]))
     <link rel="stylesheet" href="../../plugins/ol-ext/ol-ext.css" />
     <script type="text/javascript" src="../../plugins/ol-ext/ol-ext.js"></script>
     <!-- jQuery -->
+   
     <script src="../../plugins/jquery/dist/jquery.min.js"></script>
+    <!--    
+ <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+  ></script>-->
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -173,7 +178,11 @@ if(!isset($_SESSION["username"]))
                                 <td id="agent" style="width: 10%"><?php  echo $row[2] ?></td>
                                 <td id="zone" style="width: 10%"><?php  echo $row[3] ?></td>
                                 <td id="form" style="width: 10%"><?php  echo $row[4] ?></td>
-                                <td id="donnee_form" style="width: 20%"><?php  echo $row[5] ?></td>
+                                <td id="donnee_form" style="width: 20%">
+                                <button name="preview" class="btn bg-blue-sky preview_form" data-toggle="modal" id="<?php echo $row[0]; ?>">
+                                    <i class="material-icons">map</i>
+                                  </button>
+                              </td>
                                 <td id="data_geojson" style="width: 20%">
                                   <button name="preview" class="btn bg-blue-sky preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
                                     <i class="material-icons">map</i>
@@ -205,6 +214,28 @@ if(!isset($_SESSION["username"]))
                     <h4 class="modal-title" id="defaultModalLabel">Visualiser la zone </h4>
                 </div>
                 <div class="modal-body" id="bodyPreview">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+      
+        <!-- Modals : Prévisualiser les données de la formulaire  -->
+        <div class="modal fade" id="previewForm">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Visualiser les données de formulaire </h4>
+                </div>
+                <div class="modal-body" id="bodyPreviewform">
                     
                 </div>
                 <div class="modal-footer">
@@ -260,6 +291,18 @@ if(!isset($_SESSION["username"]))
     <script src="../../js/gestion_donnees/preview_zone.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
+
+    <!--pour afficher les données collecter sous format d'un tableau -->
+  
+
+ <script
+  src="https://cdn.jsdelivr.net/npm/htmlson.js"
+ ></script>
+
+
+ <script
+  src="https://cdn.jsdelivr.net/npm/htmlson.js"
+ ></script>
 
   </body>
   <?php 
