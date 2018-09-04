@@ -174,24 +174,31 @@ if(!isset($_SESSION["username"]))
                                   $update_agent = $row[0];
                                   ?>
                               <tr>
-                                <td id="projet" style="width: 10%"><?php  echo $row[1] ?></td>
-                                <td id="agent" style="width: 10%"><?php  echo $row[2] ?></td>
-                                <td id="zone" style="width: 10%"><?php  echo $row[3] ?></td>
-                                <td id="form" style="width: 10%"><?php  echo $row[4] ?></td>
-                                <td id="donnee_form" style="width: 20%">
+                                <td id="projet" style="width: 15%"><?php  echo $row[1] ?></td>
+                                <td id="agent" style="width: 15%"><?php  echo $row[2] ?></td>
+                                <td id="zone" style="width: 15%"><?php  echo $row[3] ?></td>
+                                <td id="form" style="width: 15%"><?php  echo $row[4] ?></td>
+                                <td id="donnee_form" style="width: 15%">
+                                <center>
                                 <button name="preview" class="btn bg-blue-sky preview_form" data-toggle="modal" id="<?php echo $row[0]; ?>">
-                                    <i class="material-icons">map</i>
+                                    <i class="fa fa-database"></i>
                                   </button>
+                              </center>
                               </td>
-                                <td id="data_geojson" style="width: 20%">
+
+                                <td id="data_geojson" style="width: 15%">
+                                <center>
                                   <button name="preview" class="btn bg-blue-sky preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
                                     <i class="material-icons">map</i>
                                   </button>
+                              </center>
                                 </td>
-                                <td style="width: 20%">
+                                <td style="width: 10%">
+                              <center>
                                   <button type="button" name="delete" class="btn bg-red waves-float delete_data" id="<?php echo $id_agent = $row[0]; ?>">
                                       <i class="fa fa-trash"></i>
                                   </button>
+                              </center>
                                 </td>
                               </tr>
                               <?php } ?>
