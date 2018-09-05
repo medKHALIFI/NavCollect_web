@@ -141,22 +141,9 @@ if(!isset($_SESSION["username"]))
                   <div class="x_title">
                     <div class="col-xs-7 ">
                       <h2>Gérer vos formulaires</h2>
-                  
-                    
-                    <center>
-                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
-                          <i class="fas fa-sync"></i>
-                            </button>
-                    </center>
-               
                     </div>
-              <script>
-                function ref(){
-                  location.replace("consulter_formulaire.php");
-                }
-                </script>
                     <div class="col-xs-5 align-right">
-                      <a class="btn bg-green waves-effect m-r-20" href="creation_formulaire.php" role="button">  <i class="fa fa-plus"></i>  &nbsp; Ajouter un formulaire</a>
+                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-sync"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -301,6 +288,12 @@ if(!isset($_SESSION["username"]))
     <script src="../../js/gestion_formulaires/update_form.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
+    <!--Refresh table JS -->
+    <script>
+      function ref(){
+        location.replace("consulter_formulaire.php");
+      }
+    </script>
   </body>
   <?php 
     pg_free_result($result);

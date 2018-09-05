@@ -26,10 +26,7 @@ include '../../php/db_connect.php';
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-     <!-- Font Awesome -->
-    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-  
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -119,13 +116,12 @@ include '../../php/db_connect.php';
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
             </nav>
           </div>
-
         </div>
         <!-- /top navigation -->
 
@@ -133,32 +129,25 @@ include '../../php/db_connect.php';
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              
             </div>
             <div class="clearfix"></div>
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <div class="col-xs-7 ">
-                      <h2>Zones d'étude</h2>
-                    </div>
-                    <div >
-                    <center>
-                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
-                          <i class="fas fa-sync"></i>
-                            </button>
-                    </center>
-               
-              </div>
-              <script>
-                function ref(){
-                  location.replace("consulter_zone.php");
-                }
-                </script>
-                    <div class="clearfix"></div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <div class="col-xs-7">
+                    <h2>Consulter vos zones d'étude</h2>
                   </div>
-                  <div class="x_content">
+                  <div>
+                  <center>
+                    <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
+                      <i class="fas fa-sync"></i>
+                    </button>
+                  </center>
+                </div>
+              <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
                     <br />
                     <div class="table-responsive">
                       <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_zone_fac" >
@@ -410,6 +399,11 @@ include '../../php/db_connect.php';
             });
 
         }
+    </script>
+    <script>
+      function ref(){
+        location.replace("consulter_zone.php");
+      }
     </script>
   </body>
   <?php 

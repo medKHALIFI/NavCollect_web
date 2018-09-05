@@ -141,39 +141,27 @@ if(!isset($_SESSION["username"]))
                   <div class="x_title">
                     <div class="col-xs-7 ">
                       <h2>Gestion des agents</h2>
-                      <center>
-                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
-                          <i class="fas fa-sync"></i>
-                            </button>
-                    </center>
-               
                     </div>
-              <script>
-                function ref(){
-                  location.replace("index.php");
-                }
-                </script>
-
                     <div class="col-xs-5 align-right">
-                      <button type="button" class="btn bg-green waves-float m-r-20" data-toggle="modal" data-target="#modalUser"> <i class="fa fa-plus"></i> &nbsp; Ajouter un agent</button>
+                      <button type="button" class="btn bg-green waves-float m-r-20" data-toggle="modal" data-target="#modalUser"> <i class="fas fa-user-plus"></i></button>
+                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-sync"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
+                    <br/>
                     <div class="table-responsive">
                       <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_agent" >
                           <thead>
                               <tr>
-                                  
-                                  <th>Nom</th>
-                                  <th>Prénom</th>
-                                  <th>Email</th>
-                                  <th>Téléphone</th>
-                                  <th>Date de création</th>
-                                  <th>Date de modification</th>
-                                  <th>Code IMEI</th>
-                                  <th>Actions</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Date de création</th>
+                                <th>Date de modification</th>
+                                <th>Code IMEI</th>
+                                <th>Actions</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -374,7 +362,12 @@ if(!isset($_SESSION["username"]))
     <script src="../../js/gestion_agents/update_user.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
-
+    <!--Refresh table JS -->
+    <script>
+      function ref(){
+        location.replace("index.php");
+      }
+    </script>
   </body>
   <?php pg_close($dbconn); ?>
 </html>

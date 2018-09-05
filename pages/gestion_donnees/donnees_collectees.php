@@ -19,13 +19,8 @@ if(!isset($_SESSION["username"]))
     <!-- ol-ext -->
     <link rel="stylesheet" href="../../plugins/ol-ext/ol-ext.css" />
     <script type="text/javascript" src="../../plugins/ol-ext/ol-ext.js"></script>
-    <!-- jQuery -->
-   
+    <!-- jQuery -->   
     <script src="../../plugins/jquery/dist/jquery.min.js"></script>
-    <!--    
- <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-  ></script>-->
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -35,9 +30,7 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-  
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -51,6 +44,7 @@ if(!isset($_SESSION["username"]))
     <!-- Custom Theme Style -->
     <link href="../../css/custom.css" rel="stylesheet">
     <link href="../../css/map.css" rel="stylesheet">
+
   </head>
 
   <body class="nav-md ">
@@ -113,7 +107,6 @@ if(!isset($_SESSION["username"]))
             <!-- /sidebar menu -->
           </div>
         </div>
-
         <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
@@ -130,7 +123,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out-alt pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
@@ -150,25 +143,19 @@ if(!isset($_SESSION["username"]))
                 <div class="x_panel">
                   <div class="x_title">
                     <div class="col-xs-7">
-                      <h2>Consulter les données colléctées</h2>
+                      <h2>Consulter les données collectées</h2>
                     </div>
-                    <div >
-                    <center>
-                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
-                          <i class="fas fa-sync"></i>
-                            </button>
-                    </center>
-               
-              </div>
-              <script>
-                function ref(){
-                  location.replace("donnees_collectees.php");
-                }
-                </script>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br/>
+                  <div >
+                  <center>
+                    <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
+                      <i class="fas fa-sync"></i>
+                    </button>
+                  </center>
+                </div>
+                <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <br/>
                     <div class="table-responsive">
                       <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_agent" >
                           <thead>
@@ -196,16 +183,16 @@ if(!isset($_SESSION["username"]))
                                 <td id="form" style="width: 15%"><?php  echo $row[4] ?></td>
                                 <td id="donnee_form" style="width: 15%">
                                 <center>
-                                <button name="preview" class="btn bg-blue-sky preview_form" data-toggle="modal" id="<?php echo $row[0]; ?>">
-                                    <i class="fa fa-database"></i>
+                                  <button name="preview" class="btn bg-green preview_form" data-toggle="modal" id="<?php echo $row[0]; ?>">
+                                    <i class="fas fa-table"></i>
                                   </button>
                               </center>
                               </td>
 
                                 <td id="data_geojson" style="width: 15%">
                                 <center>
-                                  <button name="preview" class="btn bg-blue-sky preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
-                                    <i class="material-icons">map</i>
+                                  <button class="btn bg-green preview_zone" data-toggle="modal" id="<?php echo $row[0]; ?>">
+                                    <i class="fas fa-map-marked-alt"></i>
                                   </button>
                               </center>
                                 </td>
@@ -221,7 +208,6 @@ if(!isset($_SESSION["username"]))
                           </tbody>
                       </table>
                     </div>
-          
                   </div>
                 </div>
               </div>
@@ -244,13 +230,7 @@ if(!isset($_SESSION["username"]))
                 </div>
             </div>
           </div>
-        </div>
-      
-      
-      
-      
-      
-      
+        </div>      
         <!-- Modals : Prévisualiser les données de la formulaire  -->
         <div class="modal fade" id="previewForm">
           <div class="modal-dialog" role="document">
@@ -259,7 +239,7 @@ if(!isset($_SESSION["username"]))
                     <h4 class="modal-title" id="defaultModalLabel">Visualiser les données de formulaire </h4>
                 </div>
                 <div class="modal-body" id="bodyPreviewform">
-                    
+                    <div class="table-responsive" id="table_donnee"></div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fermer</button>
@@ -314,19 +294,9 @@ if(!isset($_SESSION["username"]))
     <script src="../../js/gestion_donnees/preview_zone.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
-
-    <!--pour afficher les données collecter sous format d'un tableau -->
-  
-
- <script
-  src="https://cdn.jsdelivr.net/npm/htmlson.js"
- ></script>
-
-
- <script
-  src="https://cdn.jsdelivr.net/npm/htmlson.js"
- ></script>
-
+    <!-- Table export -->
+    <script src="../../plugins/table-export/FileSaver.min.js"></script>
+    <script src="../../plugins/table-export/tableexport.min.js"></script>
   </body>
   <?php 
     pg_free_result($result);

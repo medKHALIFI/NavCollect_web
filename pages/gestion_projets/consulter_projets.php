@@ -119,7 +119,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
@@ -141,19 +141,13 @@ if(!isset($_SESSION["username"]))
                     <div class="col-xs-7 ">
                       <h2>Consulter vos projets</h2>
                     </div>
-                    <div >
-                    <center>
-                       <button name="preview" class="btn bg-blue-sky affectation" onclick="ref()" >
+                    <div>
+                      <center>
+                        <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
                           <i class="fas fa-sync"></i>
-                            </button>
-                    </center>
-               
-              </div>
-              <script>
-                function ref(){
-                  location.replace("consulter_projets.php");
-                }
-                </script>
+                        </button>
+                      </center>
+                    </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -180,7 +174,7 @@ if(!isset($_SESSION["username"]))
                               <td id="description_projet"><?php  echo $row[3] ?></td>
                               <td>
                                 <center>
-                                  <button name="preview" class="btn bg-blue-sky affectation" data-toggle="modal" id="<?php echo $affectation =$row[0]; ?>">
+                                  <button name="preview" class="btn bg-green affectation" data-toggle="modal" id="<?php echo $affectation =$row[0]; ?>">
                                     <i class="far fa-eye"></i> Liste
                                   </button>
                                 </center>
@@ -272,6 +266,12 @@ if(!isset($_SESSION["username"]))
     <script src="../../js/gestion_projets/consulter_projets.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
+    <!--Refresh table JS -->
+    <script>
+      function ref(){
+        location.replace("consulter_projets.php");
+      }
+    </script>
   </body>
   <?php 
     pg_free_result($result);

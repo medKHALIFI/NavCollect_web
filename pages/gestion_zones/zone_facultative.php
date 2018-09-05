@@ -30,6 +30,7 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -66,9 +67,7 @@ if(!isset($_SESSION["username"]))
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -123,7 +122,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
@@ -149,20 +148,21 @@ if(!isset($_SESSION["username"]))
                       <h2>Zones facultatives</h2>
                     </div>
                     <div class="col-xs-5 align-right">
-                      <button type="button" class="btn bg-green waves-effect m-r-20" data-toggle="modal" data-target="#modalAdd"> <i class="fa fa-plus"></i> &nbsp; Ajouter une zone</button>
+                      <button type="button" class="btn bg-green waves-effect m-r-20" data-toggle="modal" data-target="#modalAdd"> <i class="fa fa-plus"></i></button>
+                      <button class="btn bg-cyan affectation pull-right" onclick="ref()" ><i class="fas fa-sync"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_zone_fac" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_zone_fac" >
                           <thead>
                             <tr>
                                 <th style="width: 15%;">nom</th>
                                 <th style="width: 15%;">source</th>
                                 <th style="width: 55%;">Contenu (GeoJson)</th>
-                                <th style="width: 15%;">Fcts</th>
+                                <th style="width: 15%;">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -368,7 +368,7 @@ if(!isset($_SESSION["username"]))
            
         var url = "../../php/recupere_zone_fac.php";
         $.getJSON(url, function(result) {
-            console.log("resultat de php"+result);
+            //console.log("resultat de php"+result);
            
             $.each(result, function(i, field) {
 
@@ -388,14 +388,14 @@ if(!isset($_SESSION["username"]))
                             features: new ol.format.GeoJSON().readFeatures(etendue)
                         })
                     });
-                    console.log(geojson_zone);
-                    console.log(geojson_zone.getSource().getFeatures()[0].getGeometry().getType());
+                    //console.log(geojson_zone);
+                    //console.log(geojson_zone.getSource().getFeatures()[0].getGeometry().getType());
 
                 map1.addLayer(geojson_zone);
                 
                 var extent = geojson_zone.getSource().getExtent();
-                console.log("extent   " + extent);
-                console.log( "size map"+ map1.getSize());
+                //console.log("extent   " + extent);
+                //console.log( "size map"+ map1.getSize());
                 map1.getView().fit(extent, map1.getSize());
 
                 }
@@ -403,6 +403,11 @@ if(!isset($_SESSION["username"]))
             });
 
         }
+    </script>
+    <script>
+      function ref(){
+        location.replace("zone_facultative.php");
+      }
     </script>
   </body>
   <?php 

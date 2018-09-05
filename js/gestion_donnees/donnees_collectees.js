@@ -1,33 +1,29 @@
-var id_zone;
+var id_affect;
 $(document).ready(function() {
 
     $(".preview_zone").click(function() {
         $("#previewMap").modal();
         $("#bodyPreview").html('<div id="map1" class="map1"></div>');
-        id_zone = $(this).attr("id");
+        id_affect = $(this).attr("id");
     });
-
-
-    // afficher les donner json
 
     $(".preview_form").click(function() {
         $("#previewForm").modal();
-        $("#bodyPreviewform").html('<table class="testTable table table-hover"></table>');
-        id_zone = $(this).attr("id");
-        console.log("id zone" + id_zone);
+        id_affect = $(this).attr("id");
     });
 
     $("#previewMap").on('shown.bs.modal', function() {
-        recuperer_zone(id_zone);
+        get_zone(id_affect);
     });
 
     $("#previewForm").on('shown.bs.modal', function() {
-        recuperer_form(id_zone);
+        get_data(id_affect);
+
     });
 
 });
 
-function recuperer_zone(id_zone) {
+function get_zone(id_affect) {
 
     var osm1 = new ol.layer.Tile({
         title: "Open Streets Map",
@@ -59,7 +55,7 @@ function recuperer_zone(id_zone) {
 
             var zone_form = field.zone_form;
             var id_data = field.id_data;
-            if (id_data == id_zone) {
+            if (id_data == id_affect) {
 
                 var geojson_zone = new ol.layer.Vector({
 
@@ -79,12 +75,7 @@ function recuperer_zone(id_zone) {
     });
 }
 
-function recuperer_form(id_zone) {
-
-    console.log("recuperer_form");
-
-
-
+function get_data(id_affect) {
 
     var url = "../../php/recupere_zone_data.php";
     $.getJSON(url, function(result) {
@@ -93,34 +84,69 @@ function recuperer_form(id_zone) {
 
             var data_form = field.data_form;
             var id_data = field.id_data;
-            if (id_data == id_zone) {
-
-                console.log("data form : " + data_form);
-                //  var json = JSON.stringify(data_form);
-                // console.log("data json " + json);
+            if (id_data == id_affect) {
 
                 var data = JSON.parse(data_form);
 
-                trans(data);
-
-                /* var data = [{ "name": "textarea-1535974156304", "value": "" }, { "name": "select-1535974154455", "value": "option-1" }, { "name": "number-1535974190489", "value": "" }];
-                 var json = JSON.stringify(data);
-                 trans(data);*/
-
+                // CODE DE JSON 2 HTML TABLE:
+                document.getElementById('table_donnee').innerHTML = json2table(data, 'table table-bordered table-striped jambo_table table-hover dataTable data');
+                ExportTable();
 
             }
         });
     });
 }
-
-function trans(resp) {
-    console.log("trans resp : " + resp);
-    //var data = JSON.parse(resp);
-    //console.log("trans data : " + data);
-
-
-    $('.testTable').htmlson({ //the magic
-        data: resp,
-        debug: true
+// JSON DATA 2 HTML TABLE
+function json2table(json, classes) {
+    var cols = Object.keys(json[0]);
+    
+    var headerRow = '';
+    var bodyRows = '';
+    
+    classes = classes || '';
+  
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  
+    cols.map(function(col) {
+      headerRow += '<th>' + capitalizeFirstLetter(col) + '</th>';
     });
+  
+    json.map(function(row) {
+      bodyRows += '<tr>';
+  
+      cols.map(function(colName) {
+        bodyRows += '<td>' + row[colName] + '</td>';
+      })
+  
+      bodyRows += '</tr>';
+    });
+  
+    return '<table class="' +
+           classes +
+           '"><thead><tr>' +
+           headerRow +
+           '</tr></thead><tbody>' +
+           bodyRows +
+           '</tbody></table>';
+}
+
+// EXPORT
+function ExportTable(){
+    $(".data").tableExport({
+        headings: true,                    
+        footers: true,                     
+        formats: ["xls", "csv", "txt"],    
+        fileName: "id",                    
+        bootstrap: true,                   
+        position: "well" ,                
+        ignoreRows: null,                  
+        ignoreCols: null,                 
+        ignoreCSS: ".tableexport-ignore"   
+    });
+}
+// Refresh
+function ref(){
+    location.replace("donnees_collectees.php");
 }
