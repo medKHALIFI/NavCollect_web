@@ -35,7 +35,7 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -131,7 +131,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out-alt pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
@@ -148,6 +148,16 @@ if(!isset($_SESSION["username"]))
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Ajouter une zone d'étude</h2>
+                    
+                    <div class="form-group1 pull-right" id="search">
+                      <input type="text" class="form-control1" placeholder="Chercher..." id="search-input">
+                      <button type="submit" class="form-control1 form-control-submit"></button>
+                      <span class="search-label"><i class="fas fa-search-location"></i></span>
+                      <div class="container">
+                        <div id="address-bar"></div>
+                      </div>
+                    </div>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

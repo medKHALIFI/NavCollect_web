@@ -41,7 +41,7 @@ if(!isset($_SESSION["username"]))
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <center><a href="index.php" class="site_title"><i></i> <img src="../../images/logo.png"> <span></span></a></center>
+              <center><a href="index.php" class="site_title"><i></i> <img src="../images/logo.png"> <span></span></a></center>
             </div>
             <div class="clearfix"></div>
             <br>
