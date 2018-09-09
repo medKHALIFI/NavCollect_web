@@ -36,15 +36,15 @@ $(document).ready(function() {
     //Activation et désactivation des boutons du SmartWizard 4:
     $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
         //Pour la première étape, on désactive les boutons "Suivant" et "Finir":
+        $("#prev-btn").addClass('disabled');
         if (stepPosition === 'first') {
-            $("#prev-btn").addClass('disabled');
+            
             $(".btn-finish").addClass('disabled');
         }
         //Pour la dernière étape, on désactive les boutons "Précédent" et "Suivant" et on active le bouton "Finir"
         else if (stepPosition === 'final') {
             $("#next-btn").addClass('disabled');
             $(".btn-finish").removeClass('disabled');
-            $("#prev-btn").addClass('disabled');
         }
     });
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
             toolbarPosition: 'bottom',
             toolbarButtonPosition: 'end',
             showNextButton: true,
-            showPreviousButton: true,
+            showPreviousButton: false,
             toolbarExtraButtons: [btnCancel, btnFinish]
         }
     });
@@ -68,7 +68,6 @@ $(document).ready(function() {
     // Etape 1 -> Etape 2 : 
     var res = false;
     $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
-
         var elmForm = $("#form_projet");
         //Vérification des champs en utilisant l'extention "Bootstrap js Validator":
         if (stepNumber == 0 && elmForm) {
