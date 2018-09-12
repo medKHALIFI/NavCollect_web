@@ -244,7 +244,7 @@ if(!isset($_SESSION["username"]))
                           <div class="form-group form-float">
                             <div class="form-line">
                               <label class="form-label">Code IMEI</label>
-                              <input type="text" class="form-control imei_add" id="imei_add" name="imei_add" required>
+                              <input type="number" class="form-control imei_add" id="imei_add" name="imei_add" required>
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -297,7 +297,7 @@ if(!isset($_SESSION["username"]))
                           <label for="tele_update">Code IMEI</label>
                           <div class="form-group form-float">
                               <div class="form-line">
-                                <input type="text" class="form-control imei_update" id="imei_update" name="imei_update" required>
+                                <input type="number" class="form-control imei_update" id="imei_update" name="imei_update" required>
                               </div>
                           </div>
 
