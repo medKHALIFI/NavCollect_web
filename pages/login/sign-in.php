@@ -29,14 +29,15 @@ if(isset($_SESSION["username"]))
         <div class="logo">
             <center>
                 <img src="../../images/logo.png" alt="">
-                <a href="javascript:void(0);">NAVCollect</a>
-                <small>Collecte des données SIG, NAVCities</small>
+                <a href="javascript:void(0);"></a>
+                <br>
+                <small>NAVCollect, système applicatif pour la collecte des données SIG</small>
             </center>
         </div>
         <div class="card">
             <div class="body">
                 <form id="sign_in" method="POST" action="../../php/login.php" role="form" class="sign_in">
-                    <div class="msg">Entrez votre email et mot de passe pour se connecter</div>
+                    <div class="msg">Entrez votre pseudo et mot de passe pour se connecter</div>
                     <div id="error"></div>
                     <div class="input-group">
                         <span class="input-group-addon">

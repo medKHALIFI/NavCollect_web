@@ -131,7 +131,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out-alt pull-righ"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"> Se déconnecter <i class="fas fa-sign-out-alt pull-right"></i></a></li>
                   </ul>
                 </li>
               </ul>

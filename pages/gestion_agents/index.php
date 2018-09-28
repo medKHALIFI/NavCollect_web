@@ -25,7 +25,6 @@ if(!isset($_SESSION["username"]))
     <link href="../../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-  
     <!-- NProgress -->
     <link href="../../plugins/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -117,7 +116,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"><i class="fa fa-sign-out-alt pull-right"></i> Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>
@@ -144,7 +143,7 @@ if(!isset($_SESSION["username"]))
                     </div>
                     <div class="col-xs-5 align-right">
                       <button type="button" class="btn bg-green waves-float m-r-20" data-toggle="modal" data-target="#modalUser"> <i class="fas fa-user-plus"></i></button>
-                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-sync"></i></button>
+                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-redo-alt"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>

@@ -143,7 +143,7 @@ if(!isset($_SESSION["username"]))
                       <h2>Gérer vos formulaires</h2>
                     </div>
                     <div class="col-xs-5 align-right">
-                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-sync"></i></button>
+                      <button class="btn bg-blue-sky affectation pull right" onclick="ref()" ><i class="fas fa-redo-alt"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>

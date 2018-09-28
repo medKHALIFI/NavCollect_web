@@ -28,19 +28,18 @@
         <div class="logo">
         <center>
             <img src="../../images/logo.png" alt="">
-            <a href="javascript:void(0);">NAVCollect</a>
-            <small>Collecte des données SIG, NAVCities</small>
+            <br> <br>
+            <small>NAVCollect, système applicatif pour la collecte des données SIG</small>
         </center>
         </div>
         <div class="card">
             <div class="body">
                 <form id="forgot_password" method="POST" action="../../php/reset_password.php">
                     <div class="msg">
-                        Entrez votre adresse e-mail ou nom d'utilisateur que vous avez utilisé pour vous inscrire. Nous vous enverrons un email avec votre nom d'utilisateur et un lien pour réinitialiser votre mot de passe.
                     </div>
                     <div class="input-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" name="username" id="username" class="username" placeholder="nom d'utilisateur" required autofocus>
+                            <input type="text" class="form-control" name="username" id="username" class="username" placeholder="Nom d'utilisateur ou adresse e-mail" required autofocus>
                         </div>
                     </div>
 

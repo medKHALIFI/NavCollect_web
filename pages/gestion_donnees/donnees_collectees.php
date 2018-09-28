@@ -148,7 +148,7 @@ if(!isset($_SESSION["username"]))
                   <div >
                   <center>
                     <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
-                      <i class="fas fa-sync"></i>
+                      <i class="fas fa-redo-alt"></i>
                     </button>
                   </center>
                 </div>

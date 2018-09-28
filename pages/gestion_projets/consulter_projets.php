@@ -119,7 +119,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"> Se déconnecter <i class="fas fa-sign-out-alt pull-right"></i></a></li>
                   </ul>
                 </li>
               </ul>
@@ -144,7 +144,7 @@ if(!isset($_SESSION["username"]))
                     <div>
                       <center>
                         <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
-                          <i class="fas fa-sync"></i>
+                          <i class="fas fa-redo-alt"></i>
                         </button>
                       </center>
                     </div>

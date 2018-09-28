@@ -122,7 +122,7 @@ if(!isset($_SESSION["username"]))
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"> Se déconnecter<i class="fas fa-sign-out-alt pull-right"></i></a></li>
                   </ul>
                 </li>
               </ul>
@@ -149,7 +149,7 @@ if(!isset($_SESSION["username"]))
                     </div>
                     <div class="col-xs-5 align-right">
                       <button type="button" class="btn bg-green waves-effect m-r-20" data-toggle="modal" data-target="#modalAdd"> <i class="fa fa-plus"></i></button>
-                      <button class="btn bg-cyan affectation pull-right" onclick="ref()" ><i class="fas fa-sync"></i></button>
+                      <button class="btn bg-cyan affectation pull-right" onclick="ref()" ><i class="fas fa-redo-alt"></i></button>
                     </div>
                     <div class="clearfix"></div>
                   </div>

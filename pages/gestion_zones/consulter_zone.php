@@ -116,7 +116,7 @@ include '../../php/db_connect.php';
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="../profile.php"> Profile</a></li>
-                    <li><a href="../../php/logout.php"><i class="fas fa-sign-out pull-right"></i> Se déconnecter</a></li>
+                    <li><a href="../../php/logout.php"> Se déconnecter<i class="fas fa-sign-out-alt pull-right"></i></a></li>
                   </ul>
                 </li>
               </ul>
@@ -141,7 +141,7 @@ include '../../php/db_connect.php';
                   <div>
                   <center>
                     <button class="btn bg-cyan affectation pull-right" onclick="ref()" >
-                      <i class="fas fa-sync"></i>
+                      <i class="fas fa-redo-alt"></i>
                     </button>
                   </center>
                 </div>
@@ -198,7 +198,6 @@ include '../../php/db_connect.php';
         <div class="modal fade" id="modalAdd" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-
                     <div class="modal-header">
                         <h4 class="modal-title" id="defaultModalLabel">Ajouter une zone facultative</h4>
                     </div>
