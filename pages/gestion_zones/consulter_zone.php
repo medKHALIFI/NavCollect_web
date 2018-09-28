@@ -150,7 +150,7 @@ include '../../php/db_connect.php';
               <div class="x_content">
                     <br />
                     <div class="table-responsive">
-                      <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="table_zone_fac" >
+                      <table class="table table-bordered table-striped jambo_table table-hover dataTable js-exportable" id="table_zone_fac" >
                           <thead>
                             <tr>
                               <th style="width: 15%;">nom</th>
