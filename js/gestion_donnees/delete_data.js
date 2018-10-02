@@ -4,8 +4,8 @@ $(document).ready(function() {
         var id_data = $(this).attr("id");
         console.log("id data " + id_data);
         swal({
-            title: "Êtes-vous sûr que vous vouliez supprimer cet agent?",
-            text: "Vous ne pourrez pas récupérer ce compte!",
+            title: "Êtes-vous sûr que vous vouliez supprimer ces données?",
+            text: "Vous ne pourrez pas récupérer ces données!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
